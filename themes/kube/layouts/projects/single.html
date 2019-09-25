@@ -1,0 +1,44 @@
+{{ define "title"}} {{ .Title}} {{end}}
+{{ define "header"}} {{ partial "header" .}} {{end}}
+
+{{ define "main" }}
+
+<div id="hero" class="wrap">
+  <h2>{{.Title }}</h2>
+</div>
+<ul id="posts">
+
+ {{ .Content }}
+
+ </ul>
+<ul>
+  {{ $urlPre := "https://api.geome-db.org" }}
+  {{ $expeditions := getJSON $urlPre "/projects/174/expeditions" }}
+  {{ range $expeditions}}
+    <!-- example if then -->
+    <!--{{ if .public }}-->
+      <li><a href="{{ .html_url }}" target="_blank">{{ .expeditionTitle}}</a></li>
+<ul>
+<li><a href="https://api.geome-db.org/records/Event/excel?networkId=1&q=_projects_:174+and+_expeditions_:%5{{ .expeditionCode}}%5D+_select_:%5BSample,Diagnostics%5D+">Download</a></li>
+
+<li>{{ .metadata.ProjectPrincipalInvestigator}}, {{ .metadata.Affiliation}}</li>
+
+{{ if .metadata.DiagnosticLab }}
+    <li>{{ .metadata.DiagnosticLab}}</li>
+{{ end }}
+
+
+{{ if .metadata.PrimaryPathogen }}
+    <li>{{ .metadata.PrimaryPathogen}}</li>
+{{ end }}
+
+</ul>
+
+    <!--{{ end }}-->
+  {{ end }}
+</ul>
+
+{{ end }}
+{{ define "footer" }}
+  {{ partial "footer" . }}
+{{ end }}

@@ -1,0 +1,26 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Amphibian Disease Portal"
+theme = ["futres","kube"]
+homepageText = "Amphibian Disease"
+publishDir = "docs"
+
+
+[[menu.main]]
+  name = "Data Dashboard"
+  weight = 1 
+  identifier = "dashboard"
+  url = "/dashboard/"
+
+[[menu.main]]
+  name = "Projects"
+  weight = 2
+  identifier = "projects"
+  url = "/projects/"
+
+[[menu.main]]
+  name = "Contribute Data"
+  weight = 3
+  identifier = "contributing"
+  url = "/contributing/"
+
