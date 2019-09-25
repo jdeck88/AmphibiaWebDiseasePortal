@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "http://amphibiandisease.org/"
 languageCode = "en-us"
 title = "Amphibian Disease Portal"
 theme = ["futres","kube"]
