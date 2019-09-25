@@ -5,4 +5,4 @@ slug: dashboard
 type: "dashboard"
 ---
 
-This replicates the data dashboard view on current AD portal
+This page will replicate  data dashboard view on the current (production) Amphibian Disease Portal. The graphics below are for TESTING only at this time.

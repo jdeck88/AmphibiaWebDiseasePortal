@@ -5,5 +5,5 @@ slug: projects
 type: "projects"
 ---
 
-Fetch data from https://api.geome-db.org/projects/174/expeditions and display:
+Fetch data from https://api.geome-db.org/projects/174/expeditions and display this just gets some of the data):
 
