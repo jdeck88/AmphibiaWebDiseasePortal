@@ -24,3 +24,9 @@ publishDir = "docs"
   identifier = "contributing"
   url = "/contributing/"
 
+[[menu.main]]
+  name = "About"
+  weight = 4
+  identifier = "about"
+  url = "/about/"
+
