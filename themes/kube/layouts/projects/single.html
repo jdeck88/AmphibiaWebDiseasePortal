@@ -3,40 +3,41 @@
 
 {{ define "main" }}
 
+
 <div id="hero" class="wrap">
   <h2>{{.Title }}</h2>
+{{ .Content }}
 </div>
-<ul id="posts">
 
- {{ .Content }}
-
- </ul>
 <ul>
   {{ $urlPre := "https://api.geome-db.org" }}
-  {{ $expeditions := getJSON $urlPre "/projects/174/expeditions" }}
+  <!-- Note: insert random string at end of request to force getting fresh data each time -->
+  {{ $expeditions := getJSON $urlPre "/projects/174/expeditions?" }} <script> Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);</script>
   {{ range $expeditions}}
-    <!-- example if then -->
     <!--{{ if .public }}-->
-      <li><a href="{{ .html_url }}" target="_blank">{{ .expeditionTitle}}</a></li>
-<ul>
-<li><a href="https://api.geome-db.org/records/Event/excel?networkId=1&q=_projects_:174+and+_expeditions_:%5{{ .expeditionCode}}%5D+_select_:%5BSample,Diagnostics%5D+">Download</a></li>
 
-<li>{{ .metadata.ProjectPrincipalInvestigator}}, {{ .metadata.Affiliation}}</li>
+    <button type="button" class="collapsible">{{ htmlUnescape .expeditionTitle }} {{ if .metadata.ProjectPrincipalInvestigator }} ( {{ .metadata.ProjectPrincipalInvestigator}}, {{ .metadata.Affiliation}} ) {{ end }} </button>
 
-{{ if .metadata.DiagnosticLab }}
-    <li>{{ .metadata.DiagnosticLab}}</li>
-{{ end }}
+    <div class="collapsibleContent">
+    <!--<a href="https://api.geome-db.org/records/Event/excel?networkId=1&q=_projects_:174+and+_expeditions_:%5{{ .expeditionCode}}%5D+_select_:%5BSample,Diagnostics%5D+" target="_blank">Download data file for this project</a>-->
 
-
-{{ if .metadata.PrimaryPathogen }}
-    <li>{{ .metadata.PrimaryPathogen}}</li>
-{{ end }}
-
-</ul>
+        <button type="button" onclick="downloadButton({{.expeditionCode}})">Download</button>
+        {{ if .metadata.PrimaryPathogen }} <br><i>Primary Pathogen</i>: {{ .metadata.PrimaryPathogen }} {{ end }}
+        {{ if .metadata.PathogenStrain }} <br><i>Pathogen Strain</i>: {{ .metadata.PathogenStrain }} {{ end }}
+        {{ if .metadata.ProjectContact }} <br><i>Project Contact</i>: {{ .metadata.ProjectContact}} - {{ .metadata.ContactEmail }} {{ end }}
+        {{ if .metadata.DiagnosticLab }} <br><i>Diagnostic Lab</i>: {{ .metadata.DiagnosticLab }} {{ end }}
+        {{ if .metadata.TechnicalDataContact}} <br><i>Technical Contact</i>: {{ .metadata.TechnicalDataContact }} - {{ .metadata.TechnicalDataContactEmail }} {{ end }}
+        {{ if .metadata.ProjectAbstract }} <br><i>Project Abstract</i>: {{ .metadata.ProjectAbstract }} {{ end }}
+        {{ if .metadata.PublicationDOI}} <br><i>Publication DOI</i>: {{ .metadata.PublicationDOI }} {{ end }}
 
     <!--{{ end }}-->
-  {{ end }}
+    </div>
+    {{ end }}
 </ul>
+
+{{ range  $.Params.js }}
+<script src="{{ . }}"></script>
+{{ end }}
 
 {{ end }}
 {{ define "footer" }}

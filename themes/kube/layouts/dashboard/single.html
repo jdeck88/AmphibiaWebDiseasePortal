@@ -3,46 +3,27 @@
 
 {{ define "main" }}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+{{ range  $.Params.js }}
+<script src="{{ . }}"></script>
+{{ end }}
+
 
 <div id="hero" class="wrap">
   <h2>{{.Title }}</h2>
 </div>
 <ul id="posts">
-
- {{ .Content }}
-<canvas id="bar-chart" width="800" height="450"></canvas>
+  Working example showing counts by Country for all loaded samples in GEOME
+  <canvas id="chart" height="400px;"></canvas>
 
 </ul>
 
-
 <script>
-// Bar chart
-new Chart(document.getElementById("bar-chart"), {
-    type: 'bar',
-    data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Predicted world population (millions) in 2050'
-      }
-    }
-});
+  dashboard = new Dashboard();
+  dashboard.initTestChart();
 </script>
 
-
 {{ end }}
+
 {{ define "footer" }}
-  {{ partial "footer" . }}
+{{ partial "footer" . }}
 {{ end }}

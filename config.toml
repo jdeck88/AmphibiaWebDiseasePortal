@@ -7,14 +7,14 @@ publishDir = "docs"
 
 
 [[menu.main]]
-  name = "Map"
-  weight = 1 
-  identifier = "map"
-  url = "/map/"
+  name = "Query"
+  weight = 1
+  identifier = "query"
+  url = "/query/"
 
 [[menu.main]]
   name = "Data Dashboard"
-  weight = 2 
+  weight = 2
   identifier = "dashboard"
   url = "/dashboard/"
 
@@ -35,4 +35,3 @@ publishDir = "docs"
   weight = 5
   identifier = "about"
   url = "/about/"
-
