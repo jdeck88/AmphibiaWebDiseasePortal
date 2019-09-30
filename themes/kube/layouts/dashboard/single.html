@@ -6,20 +6,22 @@
 {{ range  $.Params.js }}
 <script src="{{ . }}"></script>
 {{ end }}
-
+{{ range  $.Params.css }}
+<script src="{{ . }}"></script>
+{{ end }}
 
 <div id="hero" class="wrap">
   <h2>{{.Title }}</h2>
 </div>
-<ul id="posts">
-  Working example showing counts by Country for all loaded samples in GEOME
-  <canvas id="chart" height="400px;"></canvas>
 
+<ul id="posts">
+  {{ .Content }}
+  <form id="dashboardForm"></form>
+  <canvas id="dashboardChart" height="400px;"></canvas>
 </ul>
 
 <script>
   dashboard = new Dashboard();
-  dashboard.initTestChart();
 </script>
 
 {{ end }}

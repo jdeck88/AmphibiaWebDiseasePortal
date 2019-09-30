@@ -1,41 +1,86 @@
 class Dashboard{
+  // Build the dashboard chart interface
   constructor() {
-    console.log("creating chart object")
+    console.log("Creating dashboard")
+    var mychart = this;
+
+    var dashboardForm = $('#dashboardForm');
+    var dashboardSelect = $('<select>').appendTo(dashboardForm);
+
+    dashboardSelect.attr("id", "dashboardSelect")
+    dashboardSelect.append($("<option>").attr("value","").text("-- Choose a Value --"));
+    dashboardSelect.append($("<option>").attr("value","country").text("Country Count"));
+    dashboardSelect.append($("<option>").attr("value","yearCollected").text("Year Collected Count"));
+
+    dashboardForm.append(document.createTextNode("Choose a chart:"));
+    dashboardForm.append(dashboardSelect);
+
+    //dashboardSelect.setAttribute("onclick","drawChart(dashboardSelect.value);")
+    $('#dashboardSelect').change(function(mychart) {
+      var selectedVariable = $('#dashboardSelect').val().trim()
+      if (selectedVariable == "country") {
+        dashboard.countryCount();
+      } else {
+        dashboard.yearCollectedCount();
+      }
+    })
   }
 
-  // A simple example for demonstrating charting
-  initTestChart() {
-    var mychart = this;
+  // Count of records by country
+  countryCount() {
     d3
-    .json("https://api.geome-db.org/records/Sample/json?limit=10000&page=0&access_token=Ng_3nK4g_Kr9gMrjV6KP&networkId=1&q=_projects_:174+_select_:%5BEvent%5D+&source=Event.eventID,Sample.eventID,Sample.materialSampleID,Event.locality,Event.country,Event.yearCollected,Event.decimalLatitude,Event.decimalLongitude,Sample.genus,Sample.specificEpithet,fastqMetadata.tissueID,fastqMetadata.identifier,fastqMetadata.bioSample,fastqMetadata.libraryLayout,fastqMetadata.librarySource,fastqMetadata.librarySelection,fastqMetadata.bcid,Event.bcid,Sample.bcid,Sample.phylum,Sample.scientificName,Tissue.materialSampleID,Tissue.tissueID,Tissue.bcid,Tissue.tissueType,Tissue.tissuePlate,Tissue.tissueWell,expeditionCode")
+    .json("https://api.geome-db.org/records/Sample/json?limit=10000&page=0&networkId=1&q=_projects_:174+" +
+        "_select_:%5BEvent%5D+&source=Event.country,expeditionCode")
     .then(function(samples) {
-      var countryMetrics = d3.nest()
-      .key(function(d) { return d.country; })
+      var metrics = d3.nest()
+      .key(function(d) { return (d.country); })
       .rollup(function(v) { return {
-        count: v.length,
-        total: d3.sum(v, function(d) { return d.yearCollected; }),
-        avg: d3.mean(v, function(d) { return d.yearCollected; })
+        count: v.length
+        //total: d3.sum(v, function(d) { return d.yearCollected; }),
+        //avg: d3.mean(v, function(d) { return d.yearCollected; })
       }; })
       .entries(samples.content.Event);
 
-      // The resulting object contains elements for count, total, avg
-      //console.log(countryMetrics);
-
-      var labels = countryMetrics.map(function(d) {
+      var labels = metrics.map(function(d) {
         return d.key;
       });
-
-      var codes = countryMetrics.map(function(d) {
+      var codes = metrics.map(function(d) {
         return d.value.count;
       });
+      dashboard.makeGenericChart(labels, codes);
+      ;
+    }
+    );
+  }
+  // Count of records by yearCollected
+  yearCollectedCount() {
+    d3
+    .json("https://api.geome-db.org/records/Sample/json?limit=10000&page=0&networkId=1&q=_projects_:174+" +
+        "_select_:%5BEvent%5D+&source=Event.yearCollected,expeditionCode")
+    .then(function(samples) {
+      var metrics = d3.nest()
+      .key(function(d) { return (d.yearCollected); })
+      .rollup(function(v) { return {
+        count: v.length
+      }; })
+      .entries(samples.content.Event);
 
-      mychart.makeGenericChart(labels,codes);
+      var labels = metrics.map(function(d) {
+        return d.key;
+      });
+      var codes = metrics.map(function(d) {
+        return d.value.count;
+      });
+      dashboard.makeGenericChart(labels, codes);
     }
     );
   }
 
-  makeGenericChart(labels,codes) {
-    var chart = new Chart('chart', {
+  /*
+  Pass an object to a generic function for mapping
+  */
+  makeGenericChart(labels, values) {
+    var chart = new Chart('dashboardChart', {
       type: "bar",
       options: {
         maintainAspectRatio: false,
@@ -47,7 +92,7 @@ class Dashboard{
         labels: labels,
         datasets: [
           {
-            data: codes
+            data: values
           }
         ]
       }

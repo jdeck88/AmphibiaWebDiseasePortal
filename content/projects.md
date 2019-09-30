@@ -5,5 +5,7 @@ slug: projects
 type: "projects"
 js:
   - "/js/projects.js"
+css:
+  - "/css/custom.css"
 ---
 The following is a list of projects that have been uploaded.  Click each project title to view metadata.
