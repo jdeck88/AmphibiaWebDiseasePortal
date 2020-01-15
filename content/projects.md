@@ -8,4 +8,4 @@ js:
 css:
   - "/css/custom.css"
 ---
-The following is a list of projects that have been uploaded.  Click each project title to view metadata.
+The following is a list of projects that have been uploaded.  

@@ -1,8 +1,6 @@
 {{ define "title"}} {{ .Title}} {{end}}
 {{ define "header"}} {{ partial "header" .}} {{end}}
-
 {{ define "main" }}
-
 
 <div id="hero" class="wrap">
   <h2>{{.Title }}</h2>
@@ -12,31 +10,30 @@
 <ul>
   {{ $urlPre := "https://api.geome-db.org" }}
   <!-- Note: insert random string at end of request to force getting fresh data each time -->
-  {{ $expeditions := getJSON $urlPre "/projects/174/expeditions?" }} <script> Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);</script>
-  {{ range $expeditions}}
-    <!--{{ if .public }}-->
+  {{ $projects := getJSON $urlPre "/projects/stats?" }} <script> Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);</script>
 
-    <button type="button" class="collapsible">{{ htmlUnescape .expeditionTitle }} {{ if .metadata.ProjectPrincipalInvestigator }} ( {{ .metadata.ProjectPrincipalInvestigator}}, {{ .metadata.Affiliation}} ) {{ end }} </button>
-
-    <div class="collapsibleContent">
-    <!--<a href="https://api.geome-db.org/records/Event/excel?networkId=1&q=_projects_:174+and+_expeditions_:%5{{ .expeditionCode}}%5D+_select_:%5BSample,Diagnostics%5D+" target="_blank">Download data file for this project</a>-->
-
-        <button type="button" onclick="downloadButton({{.expeditionCode}})">Download</button>
-        {{ if .metadata.PrimaryPathogen }} <br><i>Primary Pathogen</i>: {{ .metadata.PrimaryPathogen }} {{ end }}
-        {{ if .metadata.PathogenStrain }} <br><i>Pathogen Strain</i>: {{ .metadata.PathogenStrain }} {{ end }}
-        {{ if .metadata.ProjectContact }} <br><i>Project Contact</i>: {{ .metadata.ProjectContact}} - {{ .metadata.ContactEmail }} {{ end }}
-        {{ if .metadata.DiagnosticLab }} <br><i>Diagnostic Lab</i>: {{ .metadata.DiagnosticLab }} {{ end }}
-        {{ if .metadata.TechnicalDataContact}} <br><i>Technical Contact</i>: {{ .metadata.TechnicalDataContact }} - {{ .metadata.TechnicalDataContactEmail }} {{ end }}
-        {{ if .metadata.ProjectAbstract }} <br><i>Project Abstract</i>: {{ .metadata.ProjectAbstract }} {{ end }}
-        {{ if .metadata.PublicationDOI}} <br><i>Publication DOI</i>: {{ .metadata.PublicationDOI }} {{ end }}
-
-    <!--{{ end }}-->
-    </div>
+  <dl>
+  {{ range $projects }}
+	<!-- 45 is the Amphibian Disease Portal TEAM configuration ID. Any project created as part of this 
+	team will be retrieved using this identifier.  Note that the /project/stats script above fetches
+	all projects from GEOME. There is probably a more elegant way to do this with GO -->
+	{{ if eq (int .projectConfiguration.id) 45 }}
+    		<dt>{{ htmlUnescape .projectTitle }} {{ if .principalInvestigator}} ({{ .principalInvestigator}}, {{ .principalInvestigatorAffiliation}}) {{ end }} </dt>
+        	{{ if .description }}<dd><i>Abstract</i>: {{ .description}} </dd>{{ end }}
+        	{{ if .principalInvestigator}}<dd><i>Principal Investigator</i>: {{ .principalInvestigator}} </dd>{{ end }}
+        	{{ if .principalInvestigatorAffiliation}}<dd><i>Principal Investigator Affiliation</i>: {{ .principalInvestigatorAffiliation}} </dd>{{ end }}
+        	{{ if .projectContact}}<dd><i>Project Contact</i>: {{ .projectContact}} </dd>{{ end }}
+        	{{ if .projectContactEmail}}<dd><i>Project Contact Email</i>: {{ .projectContactEmail}} </dd>{{ end }}
+        	{{ if .publicationGuid }}<dd><i>Publication GUID</i>: {{ .publicationGuid }} </dd>{{ end }}
+        	{{ if .projectDataGuid}}<dd><i>Project Data GUID</i>: {{ .projectDataGuid}} </dd>{{ end }}
+		<p></p>
+    	{{ end }}
     {{ end }}
-</ul>
+  </dl>
+
 
 {{ range  $.Params.js }}
-<script src="{{ . }}"></script>
+	<script src="{{ . }}"></script>
 {{ end }}
 
 {{ end }}
