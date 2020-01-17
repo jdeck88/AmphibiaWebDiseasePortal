@@ -1,4 +1,7 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/4d6e2dc9-e154-4aeb-bb74-192ef59f53ba/deploy-status)](https://app.netlify.com/sites/determined-lalande-d0e5a6/deploys)
+
+Master Branch Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/4d6e2dc9-e154-4aeb-bb74-192ef59f53ba/deploy-status)](https://app.netlify.com/sites/determined-lalande-d0e5a6/deploys)
+
+Develop Branch Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/b570d82d-0aa0-4805-9ad9-5b0d83185922/deploy-status)](https://app.netlify.com/sites/cranky-mcclintock-ba9f91/deploys)
 
 # Amphibian Disease Portal
 
