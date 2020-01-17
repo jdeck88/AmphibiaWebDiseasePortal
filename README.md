@@ -9,6 +9,8 @@ New portal design built in Hugo and Javascript with GEOME backend.  To view that
 
 Master Branch URL: https://determined-lalande-d0e5a6.netlify.com/
 
+Develop Branch URL: https://cranky-mcclintock-ba9f91.netlify.com/
+
 
 
 Note... all commits to the master branch on this github page will updated netlify at the above mentioned URL.
