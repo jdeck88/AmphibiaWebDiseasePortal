@@ -7,7 +7,9 @@ Develop Branch Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/
 
 New portal design built in Hugo and Javascript with GEOME backend.  To view that status of development, goto:
 
-https://determined-lalande-d0e5a6.netlify.com/
+Master Branch URL: https://determined-lalande-d0e5a6.netlify.com/
+
+
 
 Note... all commits to the master branch on this github page will updated netlify at the above mentioned URL.
 
