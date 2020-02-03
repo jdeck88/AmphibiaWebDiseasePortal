@@ -1,8 +1,8 @@
 
 Master Branch Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/23d9985e-54ca-4f1e-9acb-72998d516f11/deploy-status)](https://app.netlify.com/sites/amphibiandiseaseportal/deploys)
 
+Develop Branch Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/b68a24b3-fd2d-4499-adf0-4917402d68e7/deploy-status)](https://app.netlify.com/sites/amphibiandisease-develop/deploys)
 
-Develop Branch Status: 
 
 # Amphibian Disease Portal
 
@@ -10,7 +10,7 @@ New portal design built in Hugo and Javascript with GEOME backend.  To view that
 
 Master Branch URL: https://amphibiandiseaseportal.netlify.com/
 
-Develop Branch URL: 
+Develop Branch URL: https://amphibiandisease-develop.netlify.com/
 
 
 
