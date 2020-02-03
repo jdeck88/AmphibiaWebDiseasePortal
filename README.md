@@ -6,15 +6,13 @@ Develop Branch Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/
 
 # Amphibian Disease Portal
 
-New portal design built in Hugo and Javascript with GEOME backend.  To view that status of development, goto:
+New portal design built in Hugo and Javascript with GEOME backend.  Commits to the master and develop branch are watched by netlify and deployed at the following URL addresses:
 
 Master Branch URL: https://amphibiandiseaseportal.netlify.com/
 
 Develop Branch URL: https://amphibiandisease-develop.netlify.com/
 
-
-
-Note... all commits to the master branch on this github page will updated netlify at the above mentioned URL.
+When this site goes live, we may or may not be using netlify to serve amphibiandisease.org.  Stay tuned.
 
 # Developers
 
