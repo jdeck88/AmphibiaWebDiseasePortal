@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Amphibian Disease Portal</title>
+    <link>https://amphibiandisease.org/</link>
+    <description>Recent content on Amphibian Disease Portal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://amphibiandisease.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://amphibiandisease.org/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://amphibiandisease.org/about/</guid>
+      <description>Documentation: Additional documentation is located at our Documentation SiteQuestions: For questions on data loading into GEOME contact geome.help@gmail.com. For all other questions, contact: XXXXXXX
+Goals: The aim of the Amphibian Disease portal is to facilitate data sharing of chytrid disease presence and absence from field and lab studies, which we view as the first step to effectively address the global amphibian crisis. We aim to encourage collaboration and facilitate coordination among researchers and agencies involved in amphibian disease studies, particularly chytridiomycosis.</description>
+    </item>
+    
+    <item>
+      <title>Contribute Data</title>
+      <link>https://amphibiandisease.org/contributing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://amphibiandisease.org/contributing/</guid>
+      <description>To contribute data to the Amphibian Disease Portal, upload your data into GEOME. GEOME will perform data validation and hosts all data that is accessible on the Amphibian Disease Portal. Following are the steps for loading data.</description>
+    </item>
+    
+    <item>
+      <title>Data Dashboard</title>
+      <link>https://amphibiandisease.org/dashboard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://amphibiandisease.org/dashboard/</guid>
+      <description>This page contains a list of charts which can be generated. All data is dynamically pulled from GEOME.</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>https://amphibiandisease.org/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://amphibiandisease.org/projects/</guid>
+      <description>The following is a list of projects that have been uploaded.</description>
+    </item>
+    
+    <item>
+      <title>Query</title>
+      <link>https://amphibiandisease.org/query/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://amphibiandisease.org/query/</guid>
+      <description>Display map of projects</description>
+    </item>
+    
+  </channel>
+</rss>

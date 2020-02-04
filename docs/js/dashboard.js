@@ -30,7 +30,6 @@ class Dashboard{
       }
     })
   }
-  
 
   // Count of records by country
   countryCount() {
