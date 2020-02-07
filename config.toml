@@ -35,3 +35,9 @@ publishDir = "docs"
   weight = 5
   identifier = "about"
   url = "/about/"
+
+  [[menu.main]]
+  name = "Blog"
+  weight = 6
+  identifier = "blog"
+  url = "/blog/"
