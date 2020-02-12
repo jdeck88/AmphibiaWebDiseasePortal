@@ -1,10 +1,12 @@
----
-layout: post
-title:  "Bd and Bsal papers"
-date:   2015-11-01
-author: Michelle Koo
-categories: News
----
++++
+date = "2015-11-01T17:42:50+01:00"
+draft = false
+weight = 180
+description = "About Bd and Basal"
+title = "Bd and Bsal Papers"
+bref = "References"
+author = "Michelle Koo"
++++
 
 We are continuously compiling a [Bibliography for publications on Bd and Bsal research as a Zotero Group Library](https://www.zotero.org/groups/bdbsalresearch/items/order/year/sort/desc).     
 

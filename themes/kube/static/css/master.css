@@ -249,7 +249,7 @@ h1, h2, h3, h4, h5, h6 {
       top: 0;
       left: 50%;
       margin-left: -20px;
-      background: #333333; }
+      background: #ff3366; }
 
 #intro {
   margin-top: 56px;
@@ -761,10 +761,10 @@ body.page-account #hero {
 #posts {
   list-style: none;
   margin: auto;
-  margin-top: 0px;
+  margin-top: 48px;
   margin-bottom: 128px;
   max-width: 680px;
-  text-align: left; }
+  text-align: center; }
 
 #posts li {
   margin-bottom: 40px; }

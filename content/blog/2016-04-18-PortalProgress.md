@@ -1,10 +1,12 @@
----
-layout: post
-title:  "Progress report on portal development"
-date:   2016-04-18 07:00:00
-author: Michelle Koo
-categories: Portal
----
++++
+date = "2016-04-18T16:42:50+01:00"
+draft = false
+weight = 180
+description = "Spring update on the Amphibian Disease Portal."
+title = "Progress Report on Portal Development"
+bref = "portal progress"
+author = "Michelle Koo"
++++
 
 Spring update on the [Amphibian Disease portal](https://amphibiandisease.org/): We are in alpha release with core features working! The beta version is in progress now. Most importantly we have outlined the framework for the portal, which is sketched out in a user's workflow diagram.
 

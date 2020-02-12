@@ -1,10 +1,12 @@
----
-layout: post
-title:  "Amphibian Grant Challenge begins!"
-date:   2015-11-12 08:43:59
-author: Tiffany Yap
-categories: News
----
++++
+date = "2015-11-12T16:42:50+01:00"
+draft = false
+weight = 180
+description = "Instrumentl, a platform for researchers to crowdfund their research projects, has started a grant challenge for researchers to conserve amphibian biodiversity. Proposed projects range from amphibian disease to habitat/ distribution studies to school outreach programs. Donate now and help fight against amphibian extinctions!"
+title = "Amphibian Grant Challenge Begins!"
+bref = "Instrumentl Grant"
+author = "Tiffany Yap"
++++
 
 [Instrumentl](https://www.instrumentl.com), a platform for researchers to crowdfund their research projects, has started a grant challenge for researchers to conserve amphibian biodiversity. Proposed projects range from amphibian disease to habitat/ distribution studies to school outreach programs. Donate now and help fight against amphibian extinctions!
 

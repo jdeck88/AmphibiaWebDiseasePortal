@@ -1,9 +1,10 @@
----
-title: Amphibian Disease Portal
-description: blah blah blah
-language: en
-slug: /
----
++++
+description = "Welcome to the Amphibian Disease Portal"
+title = "Amphibian Disease Portal"
+draft = false
+
++++
+
 Motivated by the decline of amphibians globally and the growing understanding of diseases as major factors, AmphibiaWeb and the US Forest Service are collaborating to develop a community-based, online repository and reporting site for data on major infectious diseases, especially chytridiomycosis. Our mission is to aggregate, visualize and share data from the community of active researchers archiving their completed and in progress datasets from laboratory experiments and field sites around the world.
 
 The amphibian fungal disease chytridiomycosis, caused by the fungal pathogen Batrachochytrium dendrobatidis (Bd) has caused the extinction of hundreds of amphibian species globally over the last few decades. In addition, a newly described fungal pathogen, B. salamandrivorans (Bsal), thought to have evolved in Asia and recently introduced to Europe, has caused mass die-offs in native European salamanders. Our ability to predict outbreaks caused by these pathogenic fungi is poor. To help understand and predict these phenomena we are creating a globally accessible site for aggregating information from tested samples (Bd and Bsal) including interactive visualization of these data and the on-going activities of participants.

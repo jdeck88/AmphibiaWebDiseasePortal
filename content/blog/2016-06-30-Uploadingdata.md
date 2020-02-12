@@ -1,10 +1,12 @@
----
-layout: post
-title:  "Creating Projects, Uploading Data"
-date:   2016-06-30 11:43:59
-author: Michelle Koo
-categories: Portal
----
++++
+date = "2016-06-30T16:42:50+01:00"
+draft = false
+weight = 180
+description = "How to Upload and Create Projects."
+title = "Creating Projects, Uploading Data"
+bref = "create and upload project data"
+author = "Michelle Koo"
++++
 
 # Preparing to Upload Data
 

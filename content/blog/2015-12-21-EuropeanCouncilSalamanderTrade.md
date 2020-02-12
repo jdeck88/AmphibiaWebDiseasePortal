@@ -1,10 +1,12 @@
----
-layout: post
-title:  "The European Council Recommends Salamander Trade Restrictions to Minimize the Spread of Disease"
-date:   2015-12-21 08:43:59
-author: Tiffany Yap
-categories: News
----
++++
+date = "2015-12-21T16:42:50+01:00"
+draft = false
+weight = 180
+title = "The European Council Recommends Salamander Trade Restrictions to Minimize the Spread of Disease"
+description = "The Bern Convention on the Conservation of European Wildlife and Natural Habitats is binding international legal text that was adopted over thirty years ago to protect Europe's wild plants and animals."
+bref = "bern convention"
+author = "Tiffany Yap"
++++
 
 [The Bern Convention on the Conservation of European Wildlife and Natural Habitats](http://www.coe.int/en/web/bern-convention) 
 is binding international legal text that was adopted 

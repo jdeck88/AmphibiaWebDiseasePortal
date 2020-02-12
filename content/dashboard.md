@@ -8,6 +8,8 @@ js:
   - "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"
   - "https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"
   - "/js/dashboard.js"
+css:
+  - "/css/dashboard.css"
 ---
 
 This page contains a list of charts which can be generated.  All data is dynamically

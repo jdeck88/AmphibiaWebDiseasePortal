@@ -8,6 +8,7 @@ Paginate = 4
   RSSLink = "/index.xml"
   author = "newpixcom" # add your company name
   github = "" # add your github profile name
+  twitter = "" # add your twitter profile
   email = "myemail@myaddress.xxx"
 
 [[menu.main]]

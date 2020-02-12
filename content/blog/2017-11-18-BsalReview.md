@@ -1,10 +1,12 @@
----
-layout: post
-title:  "Can We Prevent a Second Amphibian Pandemic?"
-date:   2017-11-19 20:30:00
-author: Tiffany Yap
-categories: News Resources
----
++++
+date = "2017-11-19T16:42:50+01:00"
+draft = false
+weight = 180
+description = "About fungal pathogens in amphibian populations."
+title = "Can We Prevent a Second Amphibian Pandemic?"
+bref = "amphibian pandemic"
+author = "Michelle Koo"
++++
 
 ![Photo of a juvenile Ensatina](/assets/ensatina_juv_Yap_20171117.JPG)
 <center><small>Photo of a juvenile <em>Ensatina</em> salamander. Photo credit: Tiffany Yap</small></center>

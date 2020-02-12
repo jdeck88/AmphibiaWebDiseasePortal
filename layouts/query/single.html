@@ -1,0 +1,19 @@
+{{ define "title"}} {{ .Title}} {{end}}
+{{ define "header"}} {{ partial "header" .}} {{end}}
+
+{{ define "main" }}
+
+{{ range  $.Params.css }}
+<link rel="stylesheet" href="{{ . }}" | relURL/>
+{{ end }}
+
+<div id="mapid"></div>
+
+{{ range  $.Params.js }}
+<script src="{{ . }}" | relURL></script>
+{{ end }}
+
+{{ end }}
+{{ define "footer" }}
+  {{ partial "footer" . }}
+{{ end }}
