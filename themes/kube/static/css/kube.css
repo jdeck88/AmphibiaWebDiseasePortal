@@ -12,11 +12,9 @@ html {
   box-sizing: border-box; }
 
 *,
-/*
 *:before,
 *:after {
   box-sizing: inherit; }
-*/
 
 * {
   margin: 0;
@@ -1676,7 +1674,7 @@ button:hover,
   .hide-sm {
     display: none !important; } }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .show-sm {
     display: none !important; } }
 

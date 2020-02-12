@@ -4,13 +4,13 @@
 {{ define "main" }}
 
 {{ range  $.Params.css }}
-<link rel="stylesheet" href="{{ . }}"/>
+<link rel="stylesheet" href="{{ . }}" | relURL/>
 {{ end }}
 
 <div id="mapid"></div>
 
 {{ range  $.Params.js }}
-<script src="{{ . }}"></script>
+<script src="{{ . }}" | relURL></script>
 {{ end }}
 
 {{ end }}

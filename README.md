@@ -1,17 +1,18 @@
 
-# This repo has been forked and current version lives at https://github.com/BNHM/AmphibiaWebDiseasePortal
+Master Branch Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/23d9985e-54ca-4f1e-9acb-72998d516f11/deploy-status)](https://app.netlify.com/sites/amphibiandiseaseportal/deploys)
+
+Develop Branch Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/b68a24b3-fd2d-4499-adf0-4917402d68e7/deploy-status)](https://app.netlify.com/sites/amphibiandisease-develop/deploys)
+
 
 # Amphibian Disease Portal
 
-New portal design built in Hugo and Javascript with GEOME backend.  To view that status of development, goto:
+New portal design built in Hugo and Javascript with GEOME backend.  Commits to the master and develop branch are watched by netlify and deployed at the following URL addresses:
 
-Master Branch URL: https://determined-lalande-d0e5a6.netlify.com/
+Master Branch URL: https://amphibiandiseaseportal.netlify.com/
 
-Develop Branch URL: https://cranky-mcclintock-ba9f91.netlify.com/
+Develop Branch URL: https://amphibiandisease-develop.netlify.com/
 
-
-
-Note... all commits to the master branch on this github page will updated netlify at the above mentioned URL.
+When this site goes live, we may or may not be using netlify to serve amphibiandisease.org.  Stay tuned.
 
 # Developers
 

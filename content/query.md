@@ -9,7 +9,7 @@ js:
   - "/js/query.js"
 css:
   - "https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-  - "/css/custom.css"
+  - "/css/query.css"
 ---
 
 Display map of projects
