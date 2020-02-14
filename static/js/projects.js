@@ -29,8 +29,9 @@ function downloadButton(a) {
 	})
 }
 
-// Fetching all projects with Configuration ID of 45.
+// TODO: Separate projects, display details and figure out a toggle or something to look at each project individually.
 
+// Fetching all projects with Configuration ID of 45.
 let baseURL = 'https://api.geome-db.org/projects/stats?'
 
 async function fetchProjects() {
