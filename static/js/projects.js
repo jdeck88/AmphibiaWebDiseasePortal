@@ -28,3 +28,29 @@ function downloadButton(a) {
 		alert('error fetching download link from GEOME'+err)
 	})
 }
+
+// Fetching all projects with Configuration ID of 45.
+
+let baseURL = 'https://api.geome-db.org/projects/stats?'
+
+function fetchProjects() {
+  fetch(baseURL)
+  .then((response) => {
+    return (response.json())
+  })
+  .then((body) => {
+      for (let i = 0; i < body.length; i++) {
+          let obj = body[i]
+          let configID = obj.projectConfiguration.id
+          
+          if(configID == 45) {
+            let a = document.getElementById('projects-display')
+            let projectName = obj.projectTitle
+            a.append(projectName)
+            console.log(obj)
+          }
+      }
+  })
+}
+fetchProjects()
+

@@ -5,20 +5,23 @@
 <div id="hero" class="wrap">
   <h2>{{.Title }}</h2>
 {{ .Content }}
+<div id="projects-display">
+	This is where stuff should appear.
+</div>
 </div>
 
-<ul>
-  {{ $urlPre := "https://api.geome-db.org" }}
+<!-- <ul>
+  {{ $urlPre := "https://api.geome-db.org" }} -->
   <!-- Note: insert random string at end of request to force getting fresh data each time -->
-  {{ $projects := getJSON $urlPre "/projects/stats?" }} <script> Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);</script>
+  <!-- {{ $projects := getJSON $urlPre "/projects/stats?" }} <script> Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);</script>
 
   <dl>
-  {{ range $projects }}
+  {{ range $projects }} -->
 	<!-- 45 is the Amphibian Disease Portal TEAM configuration ID. Any project created as part of this 
 	team will be retrieved using this identifier.  Note that the /project/stats script above fetches
 	all projects from GEOME. There is probably a more elegant way to do this with GO -->
-	{{ if eq (int .projectConfiguration.id) 45 }}
-    		<dt>{{ htmlUnescape .projectTitle }} {{ if .principalInvestigator}} ({{ .principalInvestigator}}, {{ .principalInvestigatorAffiliation}}) {{ end }} </dt>
+	<!-- {{ if eq (int .projectConfiguration.id) 45 }}
+    		<dt><a href="{{ .projectTitle}}">{{ htmlUnescape .projectTitle }} </a>{{ if .principalInvestigator}} ({{ .principalInvestigator}}, {{ .principalInvestigatorAffiliation}}) {{ end }} </dt>
         	{{ if .description }}<dd><i>Abstract</i>: {{ .description}} </dd>{{ end }}
         	{{ if .principalInvestigator}}<dd><i>Principal Investigator</i>: {{ .principalInvestigator}} </dd>{{ end }}
         	{{ if .principalInvestigatorAffiliation}}<dd><i>Principal Investigator Affiliation</i>: {{ .principalInvestigatorAffiliation}} </dd>{{ end }}
@@ -29,11 +32,11 @@
 		<p></p>
     	{{ end }}
     {{ end }}
-  </dl>
+  </dl> -->
 
 
 {{ range  $.Params.js }}
-	<script src="{{ . }}"></script>
+	<script type="text/javascript" src="{{ . }}"></script>
 {{ end }}
 
 {{ end }}
