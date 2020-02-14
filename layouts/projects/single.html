@@ -2,13 +2,17 @@
 {{ define "header"}} {{ partial "header" .}} {{end}}
 {{ define "main" }}
 
-<div id="hero" class="wrap">
-  <h2>{{.Title }}</h2>
-{{ .Content }}
-<div id="projects-display">
-	This is where stuff should appear.
-</div>
-</div>
+<body onload="fetchProjects()">
+	<div id="hero" class="wrap">
+		<h2>{{.Title }}</h2>
+			{{ .Content }}
+
+			<div id="projects-display">
+				<p>
+					Project Title: <span id='title'></span>
+				</p>
+			</div>
+	</div>
 
 <!-- <ul>
   {{ $urlPre := "https://api.geome-db.org" }} -->
@@ -38,6 +42,8 @@
 {{ range  $.Params.js }}
 	<script type="text/javascript" src="{{ . }}"></script>
 {{ end }}
+
+</body>
 
 {{ end }}
 {{ define "footer" }}

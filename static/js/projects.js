@@ -33,24 +33,18 @@ function downloadButton(a) {
 
 let baseURL = 'https://api.geome-db.org/projects/stats?'
 
-function fetchProjects() {
-  fetch(baseURL)
-  .then((response) => {
-    return (response.json())
-  })
-  .then((body) => {
-      for (let i = 0; i < body.length; i++) {
-          let obj = body[i]
-          let configID = obj.projectConfiguration.id
-          
-          if(configID == 45) {
-            let a = document.getElementById('projects-display')
-            let projectName = obj.projectTitle
-            a.append(projectName)
-            console.log(obj)
-          }
-      }
-  })
+async function fetchProjects() {
+  const response = await fetch(baseURL)
+  const data = await response.json()
+
+  for (let i = 0; i < data.length; i++) {
+    if(data[i].projectConfiguration.id == 45) {
+      // console.log(data[i])
+      let projectTitle = data[i].projectTitle
+      console.log(projectTitle)
+      let el = document.getElementById('title')
+      el.append(projectTitle + ', ')
+    }
+  }
 }
-fetchProjects()
 
