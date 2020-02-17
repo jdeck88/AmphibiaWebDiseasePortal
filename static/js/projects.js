@@ -31,26 +31,42 @@ function downloadButton(a) {
 
 // TODO: Separate projects, display details and figure out a toggle or something to look at each project individually.
 
-// Fetching all projects with Configuration ID of 45.
+
+
+function createNode(element) {
+  return document.createElement(element)
+}
+
+function append(parent, el) {
+  return parent.appendChild(el)
+}
+
+// Fetching all projects from GEOME
 let baseURL = 'https://api.geome-db.org/projects/stats?'
+
+let div = document.getElementById('projects-display')
 
 function fetchProjects() {
   fetch(baseURL)
-  .then((response) => {
-    return (response.json())
-  })
-  .then((body) => {
-      for (let i = 0; i < body.length; i++) {
-          let obj = body[i]
-          let configID = obj.projectConfiguration.id
-          
-          if(configID == 45) {
-            let el = document.getElementById('projects-display')
-            let projectName = obj.projectTitle
-            el.append(projectName)
-            console.log(obj)
-          }
+  .then((resp) => resp.json())
+  .then(function(data) {
+    //console.log(data)
+    
+    // Maps through all the objects with the config ID 45 and creates a p tag for each
+    // which gets appended to the projects-display div
+    return data.map(function(project) {
+      if(project.projectConfiguration.id == 45) {
+      let p = createNode('p')
+
+      p.innerHTML = `
+      <span>${project.projectTitle} </span><br>
+      `
+      append(div, p)
       }
+    })
+  })
+  .catch(function(err) {
+    console.log(err)
   })
 }
 

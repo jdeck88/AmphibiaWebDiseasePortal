@@ -2,15 +2,17 @@
 {{ define "header"}} {{ partial "header" .}} {{end}}
 {{ define "main" }}
 
+{{ range  $.Params.css }}
+<link rel="stylesheet" href="{{ . }}" | relURL/>
+{{ end }}
+
 <body onload="fetchProjects()">
 	<div id="hero" class="wrap">
 		<h2>{{.Title }}</h2>
 			{{ .Content }}
 
 			<div id="projects-display">
-				<p>
-					Project Title: <span id='title'></span>
-				</p>
+
 			</div>
 	</div>
 
