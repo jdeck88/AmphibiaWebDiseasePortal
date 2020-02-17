@@ -1,4 +1,4 @@
-baseURL = "https://amphibiandisease.org/"
+baseURL = "/"
 languageCode = "en-us"
 title = "Amphibian Disease Portal"
 theme = "kube"
