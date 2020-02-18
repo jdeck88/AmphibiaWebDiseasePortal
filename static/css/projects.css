@@ -1,0 +1,22 @@
+#projects-display{
+    text-align: left;
+    /* border: 2px solid red; */
+}
+
+.collapsible {
+    display:block;
+}
+
+dl {
+    margin: 20px;
+}
+
+dd {
+    font-weight: normal;
+}
+
+dt span {
+    display: block;
+    /* background-color: yellow; */
+    cursor: pointer;
+}

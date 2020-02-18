@@ -10,3 +10,5 @@ css:
   - "/css/projects.css"
 ---
 
+The following is a list of projects that have been uploaded.
+
