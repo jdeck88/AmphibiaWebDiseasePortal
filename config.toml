@@ -1,3 +1,7 @@
+# Changed the base url to '/' from 'amphibiandisease.org' because it was throwing a 404
+# when blog posts were clicked on while the site is on Netlify.
+# Change when site is going live.
+
 baseURL = "/"
 languageCode = "en-us"
 title = "Amphibian Disease Portal"

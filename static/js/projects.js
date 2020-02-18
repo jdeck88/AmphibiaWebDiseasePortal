@@ -29,7 +29,7 @@ function downloadButton(a) {
 	})
 }
 
-// TODO: Separate projects, display details and figure out a toggle or something to look at each project individually.
+// TODO: figure out a toggle or something to look at each project individually.
 
 
 
@@ -44,24 +44,37 @@ function append(parent, el) {
 // Fetching all projects from GEOME
 let baseURL = 'https://api.geome-db.org/projects/stats?'
 
-let div = document.getElementById('projects-display')
+let dl = document.getElementById('projects-display')
 
 function fetchProjects() {
   fetch(baseURL)
   .then((resp) => resp.json())
   .then(function(data) {
-    //console.log(data)
     
-    // Maps through all the objects with the config ID 45 and creates a p tag for each
-    // which gets appended to the projects-display div
+    // Maps through all the objects with the config ID 45 and creates dt and dd tags for each
+    // which get appended to the projects-display dl
     return data.map(function(project) {
       if(project.projectConfiguration.id == 45) {
-      let p = createNode('p')
+        console.log(project)
+      let dt = createNode('dt')
+      let dd = createNode('dd')
 
-      p.innerHTML = `
-      <span>${project.projectTitle} </span><br>
-      `
-      append(div, p)
+      dt.innerHTML = `Project Title: ${project.projectTitle}`
+
+      dd.innerHTML = `
+      <i>Project Contact: </i>${project.projectContact} ||
+      <i>Project Contact Email: </i>${project.projectContactEmail} <br>
+      <i>Principal Investigator: </i>${project.principalInvestigator} <br>
+      <i>Principal Investigator Affiliation: </i>${project.principalInvestigatorAffiliation} <br>
+      <i>Description: </i>${project.description} <br>
+      <i>Publication GUID: </i>${project.publicationGuid} <br>
+      <i>Project Data GUID: </i>${project.projectDataGuid} <br>
+      <br>
+      `;
+
+      append(dt, dd)
+      append(dl, dt)
+      
       }
     })
   })

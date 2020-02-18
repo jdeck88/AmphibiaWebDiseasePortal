@@ -3,6 +3,10 @@
     /* border: 2px solid red; */
 }
 
-#projects-display span {
-    font-weight: bold;
+dl {
+    margin: 20px;
+}
+
+dd {
+    font-weight: normal;
 }
