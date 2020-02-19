@@ -6,6 +6,7 @@ description = "About Bd and Basal"
 title = "Bd and Bsal Papers"
 bref = "References"
 author = "Michelle Koo"
+slug = "/references"
 +++
 
 We are continuously compiling a [Bibliography for publications on Bd and Bsal research as a Zotero Group Library](https://www.zotero.org/groups/bdbsalresearch/items/order/year/sort/desc).     

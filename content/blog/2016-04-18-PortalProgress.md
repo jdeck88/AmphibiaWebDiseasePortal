@@ -6,6 +6,7 @@ description = "Spring update on the Amphibian Disease Portal."
 title = "Progress Report on Portal Development"
 bref = "portal progress"
 author = "Michelle Koo"
+slug = "/portal-progress"
 +++
 
 Spring update on the [Amphibian Disease portal](https://amphibiandisease.org/): We are in alpha release with core features working! The beta version is in progress now. Most importantly we have outlined the framework for the portal, which is sketched out in a user's workflow diagram.

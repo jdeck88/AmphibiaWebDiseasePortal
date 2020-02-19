@@ -6,6 +6,7 @@ description = "Instrumentl, a platform for researchers to crowdfund their resear
 title = "Amphibian Grant Challenge Begins!"
 bref = "Instrumentl Grant"
 author = "Tiffany Yap"
+slug = "/amphibian-grant-challenge"
 +++
 
 [Instrumentl](https://www.instrumentl.com), a platform for researchers to crowdfund their research projects, has started a grant challenge for researchers to conserve amphibian biodiversity. Proposed projects range from amphibian disease to habitat/ distribution studies to school outreach programs. Donate now and help fight against amphibian extinctions!

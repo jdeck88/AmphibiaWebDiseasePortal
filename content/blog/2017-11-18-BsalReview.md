@@ -6,6 +6,7 @@ description = "About fungal pathogens in amphibian populations."
 title = "Can We Prevent a Second Amphibian Pandemic?"
 bref = "amphibian pandemic"
 author = "Michelle Koo"
+slug = "/bsal-review"
 +++
 
 ![Photo of a juvenile Ensatina](/assets/ensatina_juv_Yap_20171117.JPG)

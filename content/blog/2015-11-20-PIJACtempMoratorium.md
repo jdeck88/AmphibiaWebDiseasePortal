@@ -12,6 +12,7 @@ salamander populations."
 title = "US Pet Industry Calls for Immediate Ban on Newt Imports"
 bref = "Ban on Newt Imports"
 author = "Tiffany Yap"
+slug = "/pijac-temp-moratorium"
 +++
 
 The Pet Industry Joint Advisory Council (PIJAC) has recommended that all importers, exporters

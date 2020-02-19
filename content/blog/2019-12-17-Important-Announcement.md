@@ -6,6 +6,7 @@ description = "Updates to the AmphibianDisease Portal"
 title = "Important Announcement"
 bref = "announcement"
 author = "Michelle Koo"
+slug = "/important-announcement"
 +++
 
 # Changes are coming!

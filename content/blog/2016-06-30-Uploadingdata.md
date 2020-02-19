@@ -6,6 +6,7 @@ description = "How to Upload and Create Projects."
 title = "Creating Projects, Uploading Data"
 bref = "create and upload project data"
 author = "Michelle Koo"
+slug = "/uploading-data"
 +++
 
 # Preparing to Upload Data

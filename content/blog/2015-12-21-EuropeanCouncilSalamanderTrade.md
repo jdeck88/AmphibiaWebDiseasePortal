@@ -6,6 +6,7 @@ title = "The European Council Recommends Salamander Trade Restrictions to Minimi
 description = "The Bern Convention on the Conservation of European Wildlife and Natural Habitats is binding international legal text that was adopted over thirty years ago to protect Europe's wild plants and animals."
 bref = "bern convention"
 author = "Tiffany Yap"
+slug = "/european-council-salamander-trade"
 +++
 
 [The Bern Convention on the Conservation of European Wildlife and Natural Habitats](http://www.coe.int/en/web/bern-convention) 
