@@ -1,11 +1,3 @@
-<!-- ---
-layout: post
-title:  "Important Annoucement"
-date:   2019-12-17
-author: Michelle Koo
-categories: News  Resources
---- -->
-
 +++
 date = "2019-12-17T16:42:50+01:00"
 draft = false
