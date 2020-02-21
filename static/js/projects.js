@@ -52,7 +52,7 @@ function fetchProjects() {
     return data.map(function(project) {
       // 45 is the Amphibian Disease Portal TEAM configuration ID.
       if(project.projectConfiguration.id == 45) {
-        //console.log(project})
+        console.log(project)
       let dt = createNode('dt')
       let dd = createNode('dd')
 

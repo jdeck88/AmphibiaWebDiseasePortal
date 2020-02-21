@@ -14,21 +14,21 @@ logo = "/img/Ensatina_closeup_Yap_1024.jpg"
 
 [[menu.main]]
     name = "Projects"
-    weight = -100
+    weight = 4
     url = "/projects/"
 [[menu.main]]
     name = "Query"
-    weight = -100
+    weight = 1
     url = "/query/"
 [[menu.main]]
     name = "Blog"
-    weight = -100
+    weight = 5
     url = "/blog/"
 [[menu.main]]
     name = "Contribute Data"
-    weight = -100
+    weight = 3
     url = "/contributing/"
 [[menu.main]]
     name = "Dashboard"
-    weight = -100
+    weight = 2
     url = "/dashboard/"
