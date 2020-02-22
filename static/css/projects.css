@@ -1,22 +1,23 @@
-#projects-display{
+#table-container {
+    margin-left: 20px;
+    margin-right: 20px;
     text-align: left;
     /* border: 2px solid red; */
 }
 
-.collapsible {
-    display:block;
+td, th, tr {
+    padding: 10px;
 }
 
-dl {
-    margin: 20px;
+.fa-globe {
+    float: right;
 }
 
-dd {
-    font-weight: normal;
+/* When hovered over this element, will display no background color*/
+.no-background:hover {
+    background-color: white;
 }
 
-dt span {
-    display: block;
-    /* background-color: yellow; */
-    cursor: pointer;
+tr:hover {
+    background-color: lightgrey;
 }

@@ -49,28 +49,21 @@ function fetchProjects() {
   .then((resp) => resp.json())
   .then(function(data) {
     
-    return data.map(function(project) {
+    return data.forEach(function(project) {
       // 45 is the Amphibian Disease Portal TEAM configuration ID.
-      if(project.projectConfiguration.id == 45) {
-        console.log(project)
-      let dt = createNode('dt')
-      let dd = createNode('dd')
+      if(project.projectConfiguration.id == 45 && project.public == true) {
+        //console.log(project)
 
-      dt.innerHTML = `<span onclick="toggle()">${project.projectTitle}</span>`
+        var table = document.getElementById('projects-display')
+        var tr = document.createElement('tr');
 
-      dd.innerHTML = `<div class="collapsible">
-      <i>Project Contact: </i>${project.projectContact} ||
-      <i>Project Contact Email: </i>${project.projectContactEmail} <br>
-      <i>Principal Investigator: </i>${project.principalInvestigator} <br>
-      <i>Principal Investigator Affiliation: </i>${project.principalInvestigatorAffiliation} <br>
-      <i>Description: </i>${project.description} <br>
-      <i>Publication GUID: </i>${project.publicationGuid} <br>
-      <i>Project Data GUID: </i>${project.projectDataGuid} <br>
-      <br></div>
-      `;
-
-      append(dt, dd)
-      append(dl, dt)
+                tr.innerHTML = `
+                <td> <i class="fa fa-globe"></i> </td>
+                <td> ${project.projectTitle} </td>
+                <td> ${project.principalInvestigator} </td>
+                <td> ${project.principalInvestigatorAffiliation} </td>
+                `
+                table.appendChild(tr);
       
       }
     })
