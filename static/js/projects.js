@@ -29,52 +29,72 @@ function fetchProjects() {
       if(project.projectConfiguration.id == 45 && project.public == true) {
         //console.log(project)
 
+        // DATA TABLE
         const table = document.getElementById('projects-display')
         let tr = document.createElement('tr') // Table row
-        let p = document.createElement('p') // Paragraph tag
-        let modalContent = document.getElementById('m-content')
 
 
-                tr.innerHTML = `
+              tr.innerHTML = `
                 <td> <i class="fa fa-globe"></i> </td>
                 <td> ${project.projectTitle} </td>
                 <td> ${project.principalInvestigator} </td>
                 <td> ${project.principalInvestigatorAffiliation} </td>
-                <td><button id="detailsBtn" data-id='${project.projectId}'>Details</button></td>
+                <td><button class="detailsBtn" data-id='${project.projectId}' data-title="${project.projectTitle}">Details</button></td>
                 `
-                table.appendChild(tr)
+              table.appendChild(tr)
 
-                //TODO: Get all buttons to be clickable.
+                //TODO: 
+                // DONE: Get all buttons to be clickable.
                 // Get each button to correspond to each project and be able to 
                 // display the data for that project.
-                
-                p.innerHTML =`
-                ${project.projectTitle}
-                `
+
+        // BUTTONS AND MODALS
+        let p = document.createElement('p')
+        let modalContent = document.querySelector('.modal-content')
+
+        // Get the buttons that open the modal by class
+        let btns = document.querySelectorAll(".detailsBtn");
+        // Get the modals by class
+        let modal = document.querySelector(".modal");
+
+          // Makes all the buttons clickable
+          for (const btn of btns) {
+            btn.addEventListener('click', function(event) {
+              modal.style.display = "block";
+              let targetId = btn.dataset.id
+              let title = btn.dataset.title
+              
+                p.innerHTML = title
                 modalContent.appendChild(p)
+            })
+           
+            
+          }
 
-          // Get the button that opens the modal
-          let btn = document.getElementById("detailsBtn");
+          
 
-          // Get the modal
-          let modal = document.getElementById("detailModal");
+          //CLOSING THE MODALS
 
           // Get the <span> element that closes the modal
           let span = document.getElementsByClassName("close")[0];
-          // When the user clicks on the button, open the modal
-          btn.onclick = function() {
-            modal.style.display = "block";
-          }
+
           // When the user clicks on <span> (x), close the modal
           span.onclick = function() {
             modal.style.display = "none";
           }
+
           // When the user clicks anywhere outside of the modal, close it
           window.onclick = function(event) {
             if (event.target == modal) {
               modal.style.display = "none";
             }
           }
+
+          // Keep this for now.
+          // When the user clicks on the button, open the modal
+          // btn.onclick = function() {
+          //   modal.style.display = "block";
+          // 
 
 
       }
