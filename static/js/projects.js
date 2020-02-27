@@ -19,6 +19,17 @@ function downloadButton(a) {
 // Fetching all projects from GEOME
 let baseURL = 'https://api.geome-db.org/projects/stats?'
 
+var query = window.location.search.substring(1);
+var qs = parse_query_string(query);
+console.log(qs)
+/*
+pseudo-code!!
+if (qs.key != some value)
+set innerHTML to be project specific shit
+else
+set innerHTML to be a a list of all fetchProjects
+*/
+
 function fetchProjects() {
   fetch(baseURL)
   .then((resp) => resp.json())
@@ -103,4 +114,26 @@ function fetchProjects() {
   .catch(function(err) {
     console.log(err)
   })
+}
+
+function parse_query_string(query) {
+  var vars = query.split("&");
+  var query_string = {};
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    var key = decodeURIComponent(pair[0]);
+    var value = decodeURIComponent(pair[1]);
+    // If first entry with this name
+    if (typeof query_string[key] === "undefined") {
+      query_string[key] = decodeURIComponent(value);
+      // If second entry with this name
+    } else if (typeof query_string[key] === "string") {
+      var arr = [query_string[key], decodeURIComponent(value)];
+      query_string[key] = arr;
+      // If third or later entry with this name
+    } else {
+      query_string[key].push(decodeURIComponent(value));
+    }
+  }
+  return query_string;
 }
