@@ -15,14 +15,13 @@ function downloadButton(a) {
 	})
 }
 
+                //TODO: 
+                // DONE: Get all buttons to be clickable.
+                // DONE: Get each button to correspond to each project.
+                // When the button routes to project ID
+                // Display the data for individual project.
 
-// Fetching all projects from GEOME
-let baseURL = 'https://api.geome-db.org/projects/stats?'
-
-var query = window.location.search.substring(1);
-var qs = parse_query_string(query);
-console.log(qs)
-/*
+                /*
 pseudo-code!!
 if (qs.key != some value)
 set innerHTML to be project specific shit
@@ -30,6 +29,35 @@ else
 set innerHTML to be a a list of all fetchProjects
 */
 
+
+// Base URL for fetching all projects from GEOME
+let baseURL = 'https://api.geome-db.org/projects/stats?'
+
+function fetchById(id) {
+  fetch(baseURL)
+  .then((res) => {
+    return (res.json())
+  })
+  .then((body) => {
+    for (let i = 0; i < body.length; i++) {
+        let obj = body[i]
+        
+        if(obj.projectConfiguration.id == 45 && obj.public == true) {
+          //console.log(obj.projectId)
+          if(id = obj.projectId) {
+            return console.log(`${obj.projectTitle}`)
+          }
+          // return console.log(id)
+        }
+    }
+})
+}
+
+console.log("wtf is this: " + fetchById(223))
+
+
+
+// Fetches all public projects and displays them in a table.
 function fetchProjects() {
   fetch(baseURL)
   .then((resp) => resp.json())
@@ -40,80 +68,52 @@ function fetchProjects() {
       if(project.projectConfiguration.id == 45 && project.public == true) {
         //console.log(project)
 
-        // DATA TABLE
         const table = document.getElementById('projects-display')
         let tr = document.createElement('tr') // Table row
-
 
               tr.innerHTML = `
                 <td> <i class="fa fa-globe"></i> </td>
                 <td> ${project.projectTitle} </td>
                 <td> ${project.principalInvestigator} </td>
                 <td> ${project.principalInvestigatorAffiliation} </td>
-                <td><button class="detailsBtn" data-id='${project.projectId}' data-title="${project.projectTitle}">Details</button></td>
+                <td><button class="detailsBtn" data-id='${project.projectId}'>Details</button></td>
                 `
               table.appendChild(tr)
-
-                //TODO: 
-                // DONE: Get all buttons to be clickable.
-                // Get each button to correspond to each project and be able to 
-                // display the data for that project.
-
-        // BUTTONS AND MODALS
-        let p = document.createElement('p')
-        let modalContent = document.querySelector('.modal-content')
-
-        // Get the buttons that open the modal by class
-        let btns = document.querySelectorAll(".detailsBtn");
-        // Get the modals by class
-        let modal = document.querySelector(".modal");
-
-          // Makes all the buttons clickable
-          for (const btn of btns) {
-            btn.addEventListener('click', function(event) {
-              modal.style.display = "block";
-              let targetId = btn.dataset.id
-              let title = btn.dataset.title
-              
-                p.innerHTML = title
-                modalContent.appendChild(p)
-            })
-           
-            
-          }
-
-          
-
-          //CLOSING THE MODALS
-
-          // Get the <span> element that closes the modal
-          let span = document.getElementsByClassName("close")[0];
-
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function() {
-            modal.style.display = "none";
-          }
-
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          }
-
-          // Keep this for now.
-          // When the user clicks on the button, open the modal
-          // btn.onclick = function() {
-          //   modal.style.display = "block";
-          // 
-
-
+              detailsButton()
       }
     })
   })
   .catch(function(err) {
     console.log(err)
   })
+}
+
+  // BUTTONS
+function detailsButton() {
+  // Get all buttons by class
+  let btns = document.querySelectorAll(".detailsBtn");
+
+    // Makes all buttons clickable and redirects page to /projectId
+    for (const btn of btns) {
+      btn.addEventListener('click', function(event) {
+        let targetId = btn.dataset.id
+        // document.location.href=`${targetId}`
+        console.log(`Project id for the button you clicked: ${targetId}`)
+        // fetchById(targetId)
+      })
+    }
+  }
+
+  function getSlug() {
+    // let query = window.location.search;
+  // let qs = parse_query_string(query);
+  // console.log(`Console log for the query variable: ${query}`)
+
+  // const queryStr = document.location.search.substring(1)
+  // const usp = new URLSearchParams(queryStr)
+  // let targetSlug = usp.toString()
+
+  //console.log(`This is the variable targetSlug: ${targetSlug}`)
 }
 
 function parse_query_string(query) {
