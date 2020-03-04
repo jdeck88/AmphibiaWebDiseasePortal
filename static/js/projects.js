@@ -18,10 +18,10 @@ function downloadButton(a) {
                 //TODO: 
                 // DONE: Get all buttons to be clickable.
                 // DONE: Get each button to correspond to each project.
-                // When the button routes to project ID
+                // When the button routes to project ID ONLY ONCE LOL
                 // Display the data for individual project.
 
-                /*
+/*
 pseudo-code!!
 if (qs.key != some value)
 set innerHTML to be project specific shit
@@ -34,6 +34,7 @@ set innerHTML to be a a list of all fetchProjects
 let baseURL = 'https://api.geome-db.org/projects/stats?'
 
 function fetchById(id) {
+  //Is there a way to dynamically build the query string here to get projects by projectid??
   fetch(baseURL)
   .then((res) => {
     return (res.json())
@@ -44,16 +45,18 @@ function fetchById(id) {
         
         if(obj.projectConfiguration.id == 45 && obj.public == true) {
           //console.log(obj.projectId)
-          if(id = obj.projectId) {
-            return console.log(`${obj.projectTitle}`)
-          }
-          // return console.log(id)
+          id = obj.projectId
         }
     }
 })
-}
 
-console.log("wtf is this: " + fetchById(223))
+let detail = document.getElementById('project-detail')
+let tr = document.createElement('tr')
+
+console.log(`fetchById function: ${id}`)
+tr.innerHTML = `<td>${id}</td>`
+return detail.appendChild(tr)
+}
 
 
 
@@ -76,10 +79,9 @@ function fetchProjects() {
                 <td> ${project.projectTitle} </td>
                 <td> ${project.principalInvestigator} </td>
                 <td> ${project.principalInvestigatorAffiliation} </td>
-                <td><button class="detailsBtn" data-id='${project.projectId}'>Details</button></td>
+                <td><button class="detailsBtn" data-id='${project.projectId}' onclick="detailsButton()">Details</button></td>
                 `
               table.appendChild(tr)
-              detailsButton()
       }
     })
   })
@@ -88,52 +90,48 @@ function fetchProjects() {
   })
 }
 
-  // BUTTONS
 function detailsButton() {
-  // Get all buttons by class
-  let btns = document.querySelectorAll(".detailsBtn");
+const btns = document.getElementsByTagName('button')
 
-    // Makes all buttons clickable and redirects page to /projectId
-    for (const btn of btns) {
-      btn.addEventListener('click', function(event) {
-        let targetId = btn.dataset.id
-        // document.location.href=`${targetId}`
-        console.log(`Project id for the button you clicked: ${targetId}`)
-        // fetchById(targetId)
-      })
-    }
-  }
-
-  function getSlug() {
-    // let query = window.location.search;
-  // let qs = parse_query_string(query);
-  // console.log(`Console log for the query variable: ${query}`)
-
-  // const queryStr = document.location.search.substring(1)
-  // const usp = new URLSearchParams(queryStr)
-  // let targetSlug = usp.toString()
-
-  //console.log(`This is the variable targetSlug: ${targetSlug}`)
+for (let i = 0; i < btns.length; i++) {
+  btns[i].addEventListener('click', function() {
+    let targetId = this.dataset.id
+    console.log(`This dataset: ${targetId}`)
+    fetchById(targetId)
+  })
+}
 }
 
-function parse_query_string(query) {
-  var vars = query.split("&");
-  var query_string = {};
-  for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split("=");
-    var key = decodeURIComponent(pair[0]);
-    var value = decodeURIComponent(pair[1]);
-    // If first entry with this name
-    if (typeof query_string[key] === "undefined") {
-      query_string[key] = decodeURIComponent(value);
-      // If second entry with this name
-    } else if (typeof query_string[key] === "string") {
-      var arr = [query_string[key], decodeURIComponent(value)];
-      query_string[key] = arr;
-      // If third or later entry with this name
-    } else {
-      query_string[key].push(decodeURIComponent(value));
-    }
-  }
-  return query_string;
-}
+//   function getSlug() {
+//     // let query = window.location.search;
+//   // let qs = parse_query_string(query);
+//   // console.log(`Console log for the query variable: ${query}`)
+
+//   // const queryStr = document.location.search.substring(1)
+//   // const usp = new URLSearchParams(queryStr)
+//   // let targetSlug = usp.toString()
+
+//   //console.log(`This is the variable targetSlug: ${targetSlug}`)
+// }
+
+// function parse_query_string(query) {
+//   var vars = query.split("&");
+//   var query_string = {};
+//   for (var i = 0; i < vars.length; i++) {
+//     var pair = vars[i].split("=");
+//     var key = decodeURIComponent(pair[0]);
+//     var value = decodeURIComponent(pair[1]);
+//     // If first entry with this name
+//     if (typeof query_string[key] === "undefined") {
+//       query_string[key] = decodeURIComponent(value);
+//       // If second entry with this name
+//     } else if (typeof query_string[key] === "string") {
+//       var arr = [query_string[key], decodeURIComponent(value)];
+//       query_string[key] = arr;
+//       // If third or later entry with this name
+//     } else {
+//       query_string[key].push(decodeURIComponent(value));
+//     }
+//   }
+//   return query_string;
+// }
