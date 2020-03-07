@@ -62,6 +62,10 @@ return detail.appendChild(tr)
 
 // Fetches all public projects and displays them in a table.
 function fetchProjects() {
+  let projectId = getUrlVars().id
+
+  
+  if (projectId === undefined) { 
   fetch(baseURL)
   .then((resp) => resp.json())
   .then(function(data) {
@@ -79,18 +83,38 @@ function fetchProjects() {
                 <td> ${project.projectTitle} </td>
                 <td> ${project.principalInvestigator} </td>
                 <td> ${project.principalInvestigatorAffiliation} </td>
-                <td><button class="detailsBtn" data-id='${project.projectId}' onclick="detailsButton()">Details</button></td>
+                <td><button class="detailsBtn" data-id='${project.projectId}' 
+                    id='project${project.projectId}'
+                    >Details</button></td>
                 `
               table.appendChild(tr)
+              document.getElementById(`project${project.projectId}`).addEventListener('click', function() {
+                //let targetId = this.dataset.id
+                console.log(`This dataset: ${project.projectId}`)
+                //fetchById(targetId)
+              })
       }
     })
   })
   .catch(function(err) {
     console.log(err)
   })
+  }else {
+
+    // INSERT YOUR PROJECT FETCHING CODE HERE
+    console.log("go fetch my own project at " + projectId)
+  }
 }
 
-function detailsButton() {
+
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+      vars[key] = value;
+  });
+  return vars;
+}
+/*function detailsButton() {
 const btns = document.getElementsByTagName('button')
 
 for (let i = 0; i < btns.length; i++) {
@@ -100,7 +124,7 @@ for (let i = 0; i < btns.length; i++) {
     fetchById(targetId)
   })
 }
-}
+}*/
 
 //   function getSlug() {
 //     // let query = window.location.search;
