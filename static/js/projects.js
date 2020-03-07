@@ -58,7 +58,7 @@ tr.innerHTML = `<td>${id}</td>`
 return detail.appendChild(tr)
 }
 
-
+//var bigdatafile = []
 
 // Fetches all public projects and displays them in a table.
 function fetchProjects() {
@@ -69,7 +69,17 @@ function fetchProjects() {
   fetch(baseURL)
   .then((resp) => resp.json())
   .then(function(data) {
-    
+    bigdatafile = data
+    console.log('initializing bigdatafile')
+    console.log(bigdatafile)
+
+    // write this to storage so we can use it later
+    // TODO: think about how best to manage this
+    // right now it will get written everytime this particular
+    // piece of code is called which is maybe OK
+    localStorage.setItem("bigdatafile", JSON.stringify(bigdatafile));
+
+
     return data.forEach(function(project) {
       // 45 is the Amphibian Disease Portal TEAM configuration ID.
       if(project.projectConfiguration.id == 45 && project.public == true) {
@@ -100,9 +110,11 @@ function fetchProjects() {
     console.log(err)
   })
   }else {
-
-    // INSERT YOUR PROJECT FETCHING CODE HERE
+    bigdatafile = JSON.parse(localStorage.getItem("bigdatafile"))
     console.log("go fetch my own project at " + projectId)
+    console.log(bigdatafile[49])
+    console.log(bigdatafile.projectId)
+    // INSERT YOUR PROJECT FETCHING CODE HERE
   }
 }
 
