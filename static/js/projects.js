@@ -14,78 +14,47 @@ function downloadButton(a) {
 		alert('error fetching download link from GEOME'+err)
 	})
 }
-
                 //TODO: 
                 // DONE: Get all buttons to be clickable.
                 // DONE: Get each button to correspond to each project.
-                // When the button routes to project ID ONLY ONCE LOL
+                // DONE: When the button routes to project ID ONLY ONCE LOL
+                // DONE: When a button is clicked, the url changes to /?id=PROJECTID
                 // Display the data for individual project.
-
-/*
-pseudo-code!!
-if (qs.key != some value)
-set innerHTML to be project specific shit
-else
-set innerHTML to be a a list of all fetchProjects
-*/
-
 
 // Base URL for fetching all projects from GEOME
 let baseURL = 'https://api.geome-db.org/projects/stats?'
-
-function fetchById(id) {
-  //Is there a way to dynamically build the query string here to get projects by projectid??
-  fetch(baseURL)
-  .then((res) => {
-    return (res.json())
-  })
-  .then((body) => {
-    for (let i = 0; i < body.length; i++) {
-        let obj = body[i]
-        
-        if(obj.projectConfiguration.id == 45 && obj.public == true) {
-          //console.log(obj.projectId)
-          id = obj.projectId
-        }
-    }
-})
-
-let detail = document.getElementById('project-detail')
-let tr = document.createElement('tr')
-
-console.log(`fetchById function: ${id}`)
-tr.innerHTML = `<td>${id}</td>`
-return detail.appendChild(tr)
-}
 
 //var bigdatafile = []
 
 // Fetches all public projects and displays them in a table.
 function fetchProjects() {
   let projectId = getUrlVars().id
-
   
+  // If no project id is defined, fetch all projects
   if (projectId === undefined) { 
+  hideDetailTable()
+
   fetch(baseURL)
   .then((resp) => resp.json())
   .then(function(data) {
-    bigdatafile = data
-    console.log('initializing bigdatafile')
-    console.log(bigdatafile)
 
-    // write this to storage so we can use it later
+
     // TODO: think about how best to manage this
     // right now it will get written everytime this particular
     // piece of code is called which is maybe OK
+
+    // Write this to storage so we can use it later
+    bigdatafile = data
     localStorage.setItem("bigdatafile", JSON.stringify(bigdatafile));
+    // console.log('initializing bigdatafile')
+    // console.log(bigdatafile)
 
 
     return data.forEach(function(project) {
       // 45 is the Amphibian Disease Portal TEAM configuration ID.
       if(project.projectConfiguration.id == 45 && project.public == true) {
-        //console.log(project)
 
-        const table = document.getElementById('projects-display')
+        let allProjTable = document.getElementById('projects-display')
         let tr = document.createElement('tr') // Table row
 
               tr.innerHTML = `
@@ -97,11 +66,10 @@ function fetchProjects() {
                     id='project${project.projectId}'
                     >Details</button></td>
                 `
-              table.appendChild(tr)
+              allProjTable.appendChild(tr)
               document.getElementById(`project${project.projectId}`).addEventListener('click', function() {
-                //let targetId = this.dataset.id
-                console.log(`This dataset: ${project.projectId}`)
-                //fetchById(targetId)
+                window.location.href = `/projects/?id=${project.projectId}`
+                // console.log(`This button's ID: ${project.projectId}`)
               })
       }
     })
@@ -109,65 +77,42 @@ function fetchProjects() {
   .catch(function(err) {
     console.log(err)
   })
-  }else {
+  } else {
     bigdatafile = JSON.parse(localStorage.getItem("bigdatafile"))
+    hideMainTable()
+
+    // Loops through the objects in localstorage
+    for (let i = 0; i < bigdatafile.length; i++) {
+      // Makes sure the project is public, is the right team (45), and that the project id matches.
+      if (bigdatafile[i].projectConfiguration.id == 45 && bigdatafile[i].public == true && bigdatafile[i].projectId == projectId) {
+        
+        let detailTable = document.getElementById('project-detail')
+        let tr = document.createElement('tr') // Table row
+
+        tr.innerHTML = `<td>${bigdatafile[i].projectTitle}</td>
+        `
+        detailTable.appendChild(tr)
+        console.log(bigdatafile[i].projectTitle)
+      }
+    }
     console.log("go fetch my own project at " + projectId)
-    console.log(bigdatafile[49])
-    console.log(bigdatafile.projectId)
-    // INSERT YOUR PROJECT FETCHING CODE HERE
   }
 }
 
-
 function getUrlVars() {
   var vars = {};
-  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
       vars[key] = value;
   });
   return vars;
 }
-/*function detailsButton() {
-const btns = document.getElementsByTagName('button')
 
-for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener('click', function() {
-    let targetId = this.dataset.id
-    console.log(`This dataset: ${targetId}`)
-    fetchById(targetId)
-  })
+function hideMainTable() {
+  let container = document.getElementById('table-container')
+  container.style.display = "none"
 }
-}*/
 
-//   function getSlug() {
-//     // let query = window.location.search;
-//   // let qs = parse_query_string(query);
-//   // console.log(`Console log for the query variable: ${query}`)
-
-//   // const queryStr = document.location.search.substring(1)
-//   // const usp = new URLSearchParams(queryStr)
-//   // let targetSlug = usp.toString()
-
-//   //console.log(`This is the variable targetSlug: ${targetSlug}`)
-// }
-
-// function parse_query_string(query) {
-//   var vars = query.split("&");
-//   var query_string = {};
-//   for (var i = 0; i < vars.length; i++) {
-//     var pair = vars[i].split("=");
-//     var key = decodeURIComponent(pair[0]);
-//     var value = decodeURIComponent(pair[1]);
-//     // If first entry with this name
-//     if (typeof query_string[key] === "undefined") {
-//       query_string[key] = decodeURIComponent(value);
-//       // If second entry with this name
-//     } else if (typeof query_string[key] === "string") {
-//       var arr = [query_string[key], decodeURIComponent(value)];
-//       query_string[key] = arr;
-//       // If third or later entry with this name
-//     } else {
-//       query_string[key].push(decodeURIComponent(value));
-//     }
-//   }
-//   return query_string;
-// }
+function hideDetailTable() {
+  let container = document.getElementById('detail-container')
+  container.style.display = "none"
+}
