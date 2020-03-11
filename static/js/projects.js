@@ -86,13 +86,33 @@ function fetchProjects() {
       // Makes sure the project is public, is the right team (45), and that the project id matches.
       if (bigdatafile[i].projectConfiguration.id == 45 && bigdatafile[i].public == true && bigdatafile[i].projectId == projectId) {
         
-        let detailTable = document.getElementById('project-detail')
-        let tr = document.createElement('tr') // Table row
+        let div = document.getElementById('project')
+        let p = document.createElement('p')
 
-        tr.innerHTML = `<td>${bigdatafile[i].projectTitle}</td>
+        p.innerHTML = `
+        <h2>${bigdatafile[i].projectTitle}</h2>
+        <h6>${bigdatafile[i].recommendedCitation}</h6>
+        
+        <h3>Abstract or Project Description</h3>
+        <hr>
+        ${bigdatafile[i].description}
+
+        <h3>Mapping Data</h3>
+        <hr>
+        Map will display here with data.<br>
+        <button href="#">Download Newest Datafile</button>
+
+        <h3>Information</h3>
+        <hr>
+        Project Contact: <a href="mailto:${bigdatafile[i].projectContactEmail}">${bigdatafile[i].projectContact} </a><br>
+        Technical Contact: <a href="mailto:mkoo@berkeley.edu">Michelle Koo</a> <br>
+        Project PI: ${bigdatafile[i].principalInvestigator} <br>
+        ARK Identifier: ${bigdatafile[i].projectDataGuid} <br>
+        DOI: ${bigdatafile[i].publicationGuid}
         `
-        detailTable.appendChild(tr)
-        console.log(bigdatafile[i].projectTitle)
+        div.appendChild(p)
+
+        console.log(bigdatafile[i])
       }
     }
     console.log("go fetch my own project at " + projectId)

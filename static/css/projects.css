@@ -24,10 +24,16 @@ tr:hover {
     background-color: lightgrey;
 }
 
-/* INDIVIDUAL PROJECT TABLE */
+/* INDIVIDUAL PROJECT DIV */
 #detail-container {
   display: block;
   margin-left: 20px;
   margin-right: 20px;
   text-align: left;
+}
+
+#back-btn {
+  width:100%;  
+  margin-top: 30px;
+  background-color: grey;
 }

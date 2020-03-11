@@ -9,7 +9,6 @@
 <body onload="fetchProjects()">
 	<div id="hero" class="wrap">
 		<h2>{{.Title }}</h2>
-			{{ .Content }}
 
 			<div id="table-container">
 				<table id="projects-display">
@@ -23,15 +22,9 @@
 				</table>
 			</div>
 			<div id="detail-container">
-				<table id="project-detail">
-					<tr class="no-background">
-						<th>Title</th>
-						<th>Two</th>
-						<th>Three</th>
-						<th>Four</th>
-					</tr>
-				</table>
-				<button onclick="location.href='/projects'">Back</button>
+				<div id="project">
+				</div>
+					<button id="back-btn" onclick="location.href='/projects'">Back to Projects</button>
 			</div>
     </div>
 
