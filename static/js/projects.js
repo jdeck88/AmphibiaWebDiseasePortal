@@ -14,12 +14,18 @@ function downloadButton(a) {
 		alert('error fetching download link from GEOME'+err)
 	})
 }
-                //TODO: 
-                // DONE: Get all buttons to be clickable.
-                // DONE: Get each button to correspond to each project.
-                // DONE: When the button routes to project ID ONLY ONCE LOL
-                // DONE: When a button is clicked, the url changes to /?id=PROJECTID
-                // Display the data for individual project.
+
+// Map for individual project samples
+var projectMap = L.map('proj-map').setView([0, 0], 2);
+
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+  maxZoom: 18,
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  id: 'mapbox.streets'
+}).addTo(projectMap);
+
 
 // Base URL for fetching all projects from GEOME
 let baseURL = 'https://api.geome-db.org/projects/stats?'
@@ -58,7 +64,7 @@ function fetchProjects() {
         let tr = document.createElement('tr') // Table row
 
               tr.innerHTML = `
-                <td> <i class="fa fa-globe"></i> </td>
+                <td> <i id="pubglobe" class="fa fa-globe"></i> </td>
                 <td> ${project.projectTitle} </td>
                 <td> ${project.principalInvestigator} </td>
                 <td> ${project.principalInvestigatorAffiliation} </td>
@@ -91,31 +97,30 @@ function fetchProjects() {
 
         p.innerHTML = `
         <h2>${bigdatafile[i].projectTitle}</h2>
+        <h6 style="font-size:12px;">Recommended Citation: </h6>
         <h6>${bigdatafile[i].recommendedCitation}</h6>
         
         <h3>Abstract or Project Description</h3>
         <hr>
         ${bigdatafile[i].description}
 
-        <h3>Mapping Data</h3>
-        <hr>
-        Map will display here with data.<br>
-        <button href="#">Download Newest Datafile</button>
-
         <h3>Information</h3>
         <hr>
-        Project Contact: <a href="mailto:${bigdatafile[i].projectContactEmail}">${bigdatafile[i].projectContact} </a><br>
-        Technical Contact: <a href="mailto:mkoo@berkeley.edu">Michelle Koo</a> <br>
         Project PI: ${bigdatafile[i].principalInvestigator} <br>
-        ARK Identifier: ${bigdatafile[i].projectDataGuid} <br>
-        DOI: ${bigdatafile[i].publicationGuid}
+        Project Contact: ${bigdatafile[i].projectContact} <a href="mailto:${bigdatafile[i].projectContactEmail}"><i class="fa fa-envelope"></i> </a><br>
+        Dataset DOI: ${bigdatafile[i].projectDataGuid} <br>
+        DOI: ${bigdatafile[i].publicationGuid} <br>
+
+        <h3>Mapping Data - Public</h3> 
+        <hr>
+        
         `
         div.appendChild(p)
 
         console.log(bigdatafile[i])
       }
     }
-    console.log("go fetch my own project at " + projectId)
+    console.log("fetching project at id " + projectId)
   }
 }
 

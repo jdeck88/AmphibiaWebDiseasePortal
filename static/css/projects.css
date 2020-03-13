@@ -11,7 +11,7 @@ td, th, tr {
     padding: 10px;
 }
 
-.fa-globe {
+#pubglobe {
     float: right;
 }
 
@@ -32,8 +32,27 @@ tr:hover {
   text-align: left;
 }
 
+/* INDIVIDUAL PROJECT BUTTONS*/
+#btns {
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
 #back-btn {
-  width:100%;  
-  margin-top: 30px;
+  width:50%;  
+  margin-top: 10px;
   background-color: grey;
+}
+
+#download-btn {
+    margin: 10px;
+}
+
+/* PROJECT MAP */
+#proj-map {
+  margin: auto;
+  padding: 20px;
+  height: 250px;
+  width: 50%;
 }
