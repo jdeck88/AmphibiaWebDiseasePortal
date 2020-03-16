@@ -1,3 +1,25 @@
+#search-container {
+  /* border: 2px solid red; */
+  margin: 20px;
+}
+
+#searchbar {
+  border: 2px solid grey;
+  border-radius: 25px;
+  padding: 30px;
+  margin: auto;
+  width: 50%;
+}
+
+.radio-btn {
+  margin: 10px;
+}
+
+#search-btn {
+  margin: 10px;
+}
+
+
 /* ALL PROJECTS TABLE */
 #table-container {
     display: block;

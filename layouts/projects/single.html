@@ -10,6 +10,18 @@
 	<div id="hero" class="wrap">
 		<h2>{{.Title }}</h2>
 
+		<div id="search-container">
+			<form id="searchbar" action="/action_page.php">
+				<input type="text" placeholder="Search Projects.." name="search" autofocus>
+
+				<input class="radio-btn" type="radio" name="radio" checked="checked"> Project PI
+				<input class="radio-btn" type="radio" name="radio"> Project Name
+
+				<button id="search-btn" type="submit"><i class="fa fa-search"></i></button>
+
+			  </form>
+		</div>
+
 			<div id="table-container">
 				<table id="projects-display">
 				<tr class="no-background">
