@@ -1,24 +1,63 @@
-
-function downloadButton(a) {
-    fetch ('https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:174+and+_expeditions_:%5B'+a+'%5D+_select_:%5BEvent,Sample%5D+')
-        .then(response => {
-	    return response.json();
-	})
-        .then(json => {
-		var a = document.createElement("a");
-  		a.href = json.url;
-  		a.setAttribute("download", a);
-  		a.click();
-	})
-	.catch(err => {
-		alert('error fetching download link from GEOME'+err)
-	})
-}
+// SAVE FOR LATER
+// function downloadButton(a) {
+//     fetch ('https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:174+and+_expeditions_:%5B'+a+'%5D+_select_:%5BEvent,Sample%5D+')
+//         .then(response => {
+// 	    return response.json();
+// 	})
+//         .then(json => {
+// 		var a = document.createElement("a");
+//   		a.href = json.url;
+//   		a.setAttribute("download", a);
+//   		a.click();
+// 	})
+// 	.catch(err => {
+// 		alert('error fetching download link from GEOME'+err)
+// 	})
+// }
 
 // Base URL for fetching all projects from GEOME
-let baseURL = 'https://api.geome-db.org/projects/stats?'
+const baseURL = 'https://api.geome-db.org/projects/stats?'
 
-//var bigdatafile = []
+const projects = []
+
+// Fetch all projects from GEOME and use the spread operator to push data into
+// the projects array
+fetch(baseURL)
+.then(blob => blob.json())
+.then(data => projects.push(...data))
+.catch(function(err) {
+  console.log(err)
+})
+console.log(projects)
+
+// Uses Regex to find partial matches 
+function findMatches(wordToMatch, projects) {
+  return projects.filter(project => {
+    const regex = new RegExp(wordToMatch, 'gi')
+    // Amphibian Disease Team ID is 45, only searches public projects.
+    if(project.projectConfiguration.id == 45 && project.public == true) {
+    return project.projectTitle.match(regex)
+    }
+  })
+}
+
+//TODO: get this function to display matches in table form instead of a paragraph.
+function displayMatches() {
+    const matchArray = findMatches(this.value, projects)
+    //console.log(matchArray)
+    const html = matchArray.map(project => {
+      return `
+      <p>${project.projectTitle}</p>
+      `
+  }).join('')
+  suggestions.innerHTML = html
+  } 
+
+const searchInput = document.querySelector('.search')
+const suggestions = document.querySelector('.suggestions')
+
+searchInput.addEventListener('change', displayMatches)
+searchInput.addEventListener('keyup', displayMatches)
 
 // Fetches all public projects and displays them in a table.
 function fetchProjects() {
