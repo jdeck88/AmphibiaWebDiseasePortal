@@ -18,7 +18,7 @@
 // Base URL for fetching all projects from GEOME
 const baseURL = 'https://api.geome-db.org/projects/stats?'
 
-const projects = []
+let projects = []
 
 // Fetch all projects from GEOME and use the spread operator to push data into
 // the projects array
@@ -33,6 +33,7 @@ console.log(projects)
 // Uses Regex to find partial matches 
 function findMatches(wordToMatch, projects) {
   return projects.filter(project => {
+    // Global insensitive
     const regex = new RegExp(wordToMatch, 'gi')
     // Amphibian Disease Team ID is 45, only searches public projects.
     if(project.projectConfiguration.id == 45 && project.public == true) {
@@ -43,15 +44,30 @@ function findMatches(wordToMatch, projects) {
 
 //TODO: get this function to display matches in table form instead of a paragraph.
 function displayMatches() {
-    const matchArray = findMatches(this.value, projects)
-    //console.log(matchArray)
-    const html = matchArray.map(project => {
-      return `
-      <p>${project.projectTitle}</p>
+  let allProjTable = document.getElementById('projects-display')
+  let tr = document.createElement('tr') // Table row
+  const matchArray = findMatches(this.value, projects)
+  //console.log(matchArray)
+
+  const html = matchArray.map(project => {
+      const regex = new RegExp(this.value, 'gi')
+      const projName = project.projectTitle.replace(regex, `<span class="hl">${this.value}</span>`);
+
+      return tr.innerHTML = `
+      <td> <i id="pubglobe" class="fa fa-globe"></i> </td>
+      <td> ${projName} </td>
+      <td> ${project.principalInvestigator} </td>
+      <td> ${project.principalInvestigatorAffiliation} </td>
+      <td><button onclick="window.location.href = '/projects/?id=${project.projectId}'" class="detailsBtn" 
+          id='project${project.projectId}'
+          >Details</button></td>
       `
+    
   }).join('')
-  suggestions.innerHTML = html
+  allProjTable.appendChild(tr)
+  allProjTable.innerHTML = html
   } 
+
 
 const searchInput = document.querySelector('.search')
 const suggestions = document.querySelector('.suggestions')
@@ -100,7 +116,8 @@ function fetchProjects() {
                     >Details</button></td>
                 `
               allProjTable.appendChild(tr)
-              document.getElementById(`project${project.projectId}`).addEventListener('click', function() {
+              document.getElementById(`project${project.projectId}`).addEventListener('click', function(e) {
+                console.log(e)
                 window.location.href = `/projects/?id=${project.projectId}`
                 // console.log(`This button's ID: ${project.projectId}`)
               })
