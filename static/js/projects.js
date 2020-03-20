@@ -18,18 +18,6 @@
 // Base URL for fetching all projects from GEOME
 const baseURL = 'https://api.geome-db.org/projects/stats?'
 
-//let projects = []
-
-// Fetch all projects from GEOME and use the spread operator to push data into
-// the projects array
-/*fetch(baseURL)
-.then(blob => blob.json())
-.then(data => projects.push(...data))
-.catch(function(err) {
-  console.log(err)
-})
-console.log(projects)*/
-
 // Uses Regex to find partial matches 
 function findMatches(wordToMatch, projectData) {
   return projectData.filter(project => {
@@ -37,7 +25,14 @@ function findMatches(wordToMatch, projectData) {
     const regex = new RegExp(wordToMatch, 'gi')
     // Amphibian Disease Team ID is 45, only searches public projects.
     if(project.projectConfiguration.id == 45 && project.public == true) {
-    return project.projectTitle.match(regex)
+      // Checks to see which radio button is selected to do the search
+      const radioPI = document.getElementById('rad-proj-pi').checked
+      const radioName = document.getElementById('rad-proj-name').checked
+      if (radioPI == true && radioName == false) {
+        return project.principalInvestigator.match(regex)
+      } if (radioName == true && radioPI == false) {
+        return project.projectTitle.match(regex)
+      }
     }
   })
 }
@@ -56,12 +51,13 @@ function displayMatches() {
   const html = matchArray.map(project => {
       const regex = new RegExp(this.value, 'gi')
       const projName = project.projectTitle.replace(regex, `<span class="hl">${this.value}</span>`);
+      const projPI = project.principalInvestigator.replace(regex, `<span class="hl">${this.value}</span>`)
 
       return tr.innerHTML = `
       <tr>
       <td> <i id="pubglobe" class="fa fa-globe"></i> </td>
       <td> ${projName} </td>
-      <td> ${project.principalInvestigator} </td>
+      <td> ${projPI} </td>
       <td> ${project.principalInvestigatorAffiliation} </td>
       <td><button onclick="window.location.href = '/projects/?id=${project.projectId}'" class="detailsBtn" 
           id='project${project.projectId}'
@@ -73,8 +69,6 @@ function displayMatches() {
   allProjTable.appendChild(tr)
   allProjTable.innerHTML = html
   } 
-
-
 
 
 // Fetches all public projects and displays them in a table.
@@ -90,8 +84,6 @@ function fetchProjects() {
   
   .then(function(data) {
 
-    //projects.push(...data)
-    //projects = data
     // TODO: think about how best to manage this
     // right now it will get written everytime this particular
     // piece of code is called which is maybe OK
@@ -182,7 +174,6 @@ function fetchProjects() {
     console.log("fetching project at id " + projectId)
   }
   const searchInput = document.querySelector('.search')
-const suggestions = document.querySelector('.suggestions')
 
 searchInput.addEventListener('change', displayMatches)
 searchInput.addEventListener('keyup', displayMatches)

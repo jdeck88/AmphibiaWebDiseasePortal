@@ -14,12 +14,9 @@
 		<div id="search-container">
 			<form id="searchbar" action="/action_page.php">
 				<input class="search" type="text" placeholder="Search Projects..." name="search" autofocus autocomplete="off">
-				<ul class="suggestions" style="list-style-type:none;">
-					
-				</ul>
 
-				<input class="radio-btn" type="radio" name="radio" checked="checked"> Project PI
-				<input class="radio-btn" type="radio" name="radio"> Project Name
+				<input id="rad-proj-pi" class="radio-btn" type="radio" name="searchby" value="ppi"> Project PI
+				<input id="rad-proj-name" class="radio-btn" type="radio" name="searchby" value="pname"> Project Name
 
 			  </form>
 		</div>
