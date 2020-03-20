@@ -18,6 +18,11 @@ div#top.hide-sm {
     height: 500px;
 }
 
+/* Dash before p tags */
+#hero p:before {
+    background: #48ABD7;
+}
+
 #main-buttons {
     margin-top: 30px;
 }

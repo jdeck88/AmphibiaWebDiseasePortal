@@ -1,8 +1,21 @@
-// SAVE FOR LATER
-// function downloadButton(a) {
-//     fetch ('https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:174+and+_expeditions_:%5B'+a+'%5D+_select_:%5BEvent,Sample%5D+')
+//TODO: function for downloading data file.
+
+// function downloadDataFile(id) {
+//   fetch (`https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:${id}`)
+//   .then(res => res.json())
+//   .then(function(data) {
+//     console.log(data.url)
+//   })
+//   .catch(err => {
+//     alert('something went wrong '+ err)
+//   })
+// }
+
+// // Download datafile button logic
+// function downloadButton(id, a) {
+//     fetch (`https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:${id}+and+_expeditions_:%5B${a}%5D+_select_:%5BEvent,Sample%5D+`)
 //         .then(response => {
-// 	    return response.json();
+// 	    return console.log(response.json());
 // 	})
 //         .then(json => {
 // 		var a = document.createElement("a");
@@ -11,7 +24,7 @@
 //   		a.click();
 // 	})
 // 	.catch(err => {
-// 		alert('error fetching download link from GEOME'+err)
+// 		alert('error fetching download link from GEOME '+ err)
 // 	})
 // }
 
@@ -164,6 +177,10 @@ function fetchProjects() {
 
         <h3>Mapping Data - Public</h3> 
         <hr>
+
+        <button id="edit-btn" href="#">Edit Project in GEOME</button>
+        <button id="download-btn" onclick="downloadDataFile(${bigdatafile[i].projectId})"><i class="fa fa-download"></i>Download Newest Datafile</button>
+        <button id="data-btn" href="#">Query Dataset</button><br>
         
         `
         div.appendChild(p)
@@ -171,7 +188,7 @@ function fetchProjects() {
         console.log(bigdatafile[i])
       }
     }
-    console.log("fetching project at id " + projectId)
+    //console.log("fetching project at id " + projectId)
   }
   const searchInput = document.querySelector('.search')
 
