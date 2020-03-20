@@ -159,8 +159,8 @@ function fetchProjects() {
         <hr>
         Project PI: ${bigdatafile[i].principalInvestigator} <br>
         Project Contact: ${bigdatafile[i].projectContact} <a href="mailto:${bigdatafile[i].projectContactEmail}"><i class="fa fa-envelope"></i> </a><br>
-        Dataset DOI: ${bigdatafile[i].projectDataGuid} <br>
-        DOI: ${bigdatafile[i].publicationGuid} <br>
+        Dataset DOI: <a href="${bigdatafile[i].projectDataGuid}">${bigdatafile[i].projectDataGuid}</a> <br>
+        DOI: <a href="${bigdatafile[i].publicationGuid}">${bigdatafile[i].publicationGuid}</a> <br>
 
         <h3>Mapping Data - Public</h3> 
         <hr>
