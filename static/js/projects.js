@@ -18,21 +18,21 @@
 // Base URL for fetching all projects from GEOME
 const baseURL = 'https://api.geome-db.org/projects/stats?'
 
-let projects = []
+//let projects = []
 
 // Fetch all projects from GEOME and use the spread operator to push data into
 // the projects array
-fetch(baseURL)
+/*fetch(baseURL)
 .then(blob => blob.json())
 .then(data => projects.push(...data))
 .catch(function(err) {
   console.log(err)
 })
-console.log(projects)
+console.log(projects)*/
 
 // Uses Regex to find partial matches 
-function findMatches(wordToMatch, projects) {
-  return projects.filter(project => {
+function findMatches(wordToMatch, projectData) {
+  return projectData.filter(project => {
     // Global insensitive
     const regex = new RegExp(wordToMatch, 'gi')
     // Amphibian Disease Team ID is 45, only searches public projects.
@@ -46,7 +46,11 @@ function findMatches(wordToMatch, projects) {
 function displayMatches() {
   let allProjTable = document.getElementById('projects-display')
   let tr = document.createElement('tr') // Table row
-  const matchArray = findMatches(this.value, projects)
+
+  bigdatafile = JSON.parse(localStorage.getItem("bigdatafile"))
+
+  //const matchArray = findMatches(this.value, projects)
+  const matchArray = findMatches(this.value, bigdatafile)
   //console.log(matchArray)
 
   const html = matchArray.map(project => {
@@ -71,11 +75,7 @@ function displayMatches() {
   } 
 
 
-const searchInput = document.querySelector('.search')
-const suggestions = document.querySelector('.suggestions')
 
-searchInput.addEventListener('change', displayMatches)
-searchInput.addEventListener('keyup', displayMatches)
 
 // Fetches all public projects and displays them in a table.
 function fetchProjects() {
@@ -87,9 +87,11 @@ function fetchProjects() {
 
   fetch(baseURL)
   .then((resp) => resp.json())
+  
   .then(function(data) {
 
-
+    //projects.push(...data)
+    //projects = data
     // TODO: think about how best to manage this
     // right now it will get written everytime this particular
     // piece of code is called which is maybe OK
@@ -179,6 +181,11 @@ function fetchProjects() {
     }
     console.log("fetching project at id " + projectId)
   }
+  const searchInput = document.querySelector('.search')
+const suggestions = document.querySelector('.suggestions')
+
+searchInput.addEventListener('change', displayMatches)
+searchInput.addEventListener('keyup', displayMatches)
 }
 
 function getUrlVars() {
