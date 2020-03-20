@@ -54,6 +54,7 @@ function displayMatches() {
       const projName = project.projectTitle.replace(regex, `<span class="hl">${this.value}</span>`);
 
       return tr.innerHTML = `
+      <tr>
       <td> <i id="pubglobe" class="fa fa-globe"></i> </td>
       <td> ${projName} </td>
       <td> ${project.principalInvestigator} </td>
@@ -61,6 +62,7 @@ function displayMatches() {
       <td><button onclick="window.location.href = '/projects/?id=${project.projectId}'" class="detailsBtn" 
           id='project${project.projectId}'
           >Details</button></td>
+          </tr>
       `
     
   }).join('')
