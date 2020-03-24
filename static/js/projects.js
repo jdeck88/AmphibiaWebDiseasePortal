@@ -180,7 +180,7 @@ function fetchProjects() {
 
         <button id="edit-btn" href="#">Edit Project in GEOME</button>
         <button id="download-btn" onclick="downloadDataFile(${bigdatafile[i].projectId})"><i class="fa fa-download"></i>Download Newest Datafile</button>
-        <button id="data-btn" href="#">Query Dataset</button><br>
+        <button id="data-btn" href="https://geome-db.org/query?q=_projects_:${bigdatafile[i].projectId}%20and%20_expeditions_:%5BCosta-rica%5D">Query Dataset</button><br>
         
         `
         div.appendChild(p)
