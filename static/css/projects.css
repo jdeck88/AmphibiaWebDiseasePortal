@@ -1,4 +1,5 @@
 
+/* SEARCH BAR */
 #search-container {
   /* border: 2px solid red; */
   margin: 20px;
@@ -14,6 +15,11 @@
 
 .radio-btn {
   margin: 10px;
+}
+
+/* Highlights partial term searches*/
+.hl {
+  background-color: rgb(175,228,245);
 }
 
 
@@ -59,23 +65,12 @@ tr:hover {
 }
 
 #back-btn {
-  width:50%;  
+  width:40%;  
   margin-top: 10px;
   background-color: grey;
 }
 
-#download-btn {
-    margin: 10px;
-}
-
-/* PROJECT MAP */
-#proj-map {
-  margin: auto;
-  padding: 20px;
-  height: 250px;
-  width: 50%;
-}
-
-.hl {
-  background-color: rgb(175,228,245);
+#download-btn, #view-btn, #data-btn {
+    margin: 5px;
+    margin-top: 20px;
 }

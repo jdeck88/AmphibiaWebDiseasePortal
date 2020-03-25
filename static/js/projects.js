@@ -1,32 +1,19 @@
-//TODO: function for downloading data file.
-
-// function downloadDataFile(id) {
-//   fetch (`https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:${id}`)
-//   .then(res => res.json())
-//   .then(function(data) {
-//     console.log(data.url)
-//   })
-//   .catch(err => {
-//     alert('something went wrong '+ err)
-//   })
-// }
-
-// // Download datafile button logic
-// function downloadButton(id, a) {
-//     fetch (`https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:${id}+and+_expeditions_:%5B${a}%5D+_select_:%5BEvent,Sample%5D+`)
-//         .then(response => {
-// 	    return console.log(response.json());
-// 	})
-//         .then(json => {
-// 		var a = document.createElement("a");
-//   		a.href = json.url;
-//   		a.setAttribute("download", a);
-//   		a.click();
-// 	})
-// 	.catch(err => {
-// 		alert('error fetching download link from GEOME '+ err)
-// 	})
-// }
+// Recovers link from the fetch using the project id, creates an anchor for it and clicks it.
+function downloadDataFile(id) {
+  fetch (`https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:${id}`)
+  .then(res => res.json())
+  .then(function(data) {
+    let a = document.createElement('a')
+    let downloadLink = data.url
+    a.href = downloadLink
+    console.log(downloadLink)
+    console.log(a)
+    a.click()
+  })
+  .catch(err => {
+    alert('something went wrong '+ err)
+  })
+}
 
 // Base URL for fetching all projects from GEOME
 const baseURL = 'https://api.geome-db.org/projects/stats?'
@@ -50,14 +37,13 @@ function findMatches(wordToMatch, projectData) {
   })
 }
 
-//TODO: get this function to display matches in table form instead of a paragraph.
+// Displays Search Results in a table
 function displayMatches() {
   let allProjTable = document.getElementById('projects-display')
   let tr = document.createElement('tr') // Table row
 
   bigdatafile = JSON.parse(localStorage.getItem("bigdatafile"))
 
-  //const matchArray = findMatches(this.value, projects)
   const matchArray = findMatches(this.value, bigdatafile)
   //console.log(matchArray)
 
@@ -140,52 +126,49 @@ function fetchProjects() {
     bigdatafile = JSON.parse(localStorage.getItem("bigdatafile"))
     hideMainTable()
 
-      // Map for individual project samples
-  var projectMap = L.map('proj-map').setView([0, 0], 2);
-
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox.streets'
-  }).addTo(projectMap);
-
     // Loops through the objects in localstorage
     for (let i = 0; i < bigdatafile.length; i++) {
+      let local = bigdatafile[i]
       // Makes sure the project is public, is the right team (45), and that the project id matches.
-      if (bigdatafile[i].projectConfiguration.id == 45 && bigdatafile[i].public == true && bigdatafile[i].projectId == projectId) {
+      if (local.projectConfiguration.id == 45 && local.public == true && local.projectId == projectId) {
         
         let div = document.getElementById('project')
         let p = document.createElement('p')
 
+        let sampleData = local.entityStats
+
         p.innerHTML = `
-        <h2>${bigdatafile[i].projectTitle}</h2>
+        <h2>${local.projectTitle}</h2>
         <h6 style="font-size:12px;">Recommended Citation: </h6>
-        <h6>${bigdatafile[i].recommendedCitation}</h6>
+        <h6>${local.recommendedCitation}</h6>
         
         <h3>Abstract or Project Description</h3>
         <hr>
-        ${bigdatafile[i].description}
+        ${local.description}
 
         <h3>Information</h3>
         <hr>
-        Project PI: ${bigdatafile[i].principalInvestigator} <br>
-        Project Contact: ${bigdatafile[i].projectContact} <a href="mailto:${bigdatafile[i].projectContactEmail}"><i class="fa fa-envelope"></i> </a><br>
-        Dataset DOI: <a href="${bigdatafile[i].projectDataGuid}">${bigdatafile[i].projectDataGuid}</a> <br>
-        DOI: <a href="${bigdatafile[i].publicationGuid}">${bigdatafile[i].publicationGuid}</a> <br>
+        Project PI: ${local.principalInvestigator} <br>
+        Project Contact: ${local.projectContact} <a href="mailto:${local.projectContactEmail}"><i class="fa fa-envelope"></i> </a><br>
+        Dataset DOI: <a href="${local.projectDataGuid}">${local.projectDataGuid}</a> <br>
+        DOI: <a href="${local.publicationGuid}">${local.publicationGuid}</a> <br>
 
-        <h3>Mapping Data - Public</h3> 
+        <h3 style="margin-top: 15px;">Project Data - Public <i class="fa fa-globe"></i></h3> 
         <hr>
 
-        <button id="edit-btn" href="#">Edit Project in GEOME</button>
-        <button id="download-btn" onclick="downloadDataFile(${bigdatafile[i].projectId})"><i class="fa fa-download"></i>Download Newest Datafile</button>
-        <button id="data-btn" href="https://geome-db.org/query?q=_projects_:${bigdatafile[i].projectId}%20and%20_expeditions_:%5BCosta-rica%5D">Query Dataset</button><br>
+        Events: ${sampleData.EventCount} || 
+        Samples Collected: ${sampleData.SampleCount}
+        <br>
+
+        <button id="view-btn" onclick="location.href='https://geome-db.org/workbench/overview?projectId=${local.projectId}'">View Project in GEOME <i class="fa fa-external-link"></i></button>
+        <button id="data-btn" onclick="location.href='https://geome-db.org/query?q=_projects_:${local.projectId}'">Query Dataset in GEOME <i class="fa fa-external-link"></i></button>
+        <button id="download-btn" onclick="downloadDataFile(${local.projectId})"><i class="fa fa-download"></i>Download Newest Datafile</button><br>
         
         `
         div.appendChild(p)
 
-        console.log(bigdatafile[i])
+        console.log(local)
+        console.log(local.entityStats)
       }
     }
     //console.log("fetching project at id " + projectId)
