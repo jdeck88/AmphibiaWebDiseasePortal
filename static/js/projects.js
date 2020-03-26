@@ -28,6 +28,7 @@ function findMatches(wordToMatch, projectData) {
       // Checks to see which radio button is selected to do the search
       const radioPI = document.getElementById('rad-proj-pi').checked
       const radioName = document.getElementById('rad-proj-name').checked
+      
       if (radioPI == true && radioName == false) {
         return project.principalInvestigator.match(regex)
       } if (radioName == true && radioPI == false) {
@@ -173,7 +174,8 @@ function fetchProjects() {
     }
     //console.log("fetching project at id " + projectId)
   }
-  const searchInput = document.querySelector('.search')
+
+const searchInput = document.querySelector('.search')
 
 searchInput.addEventListener('change', displayMatches)
 searchInput.addEventListener('keyup', displayMatches)
