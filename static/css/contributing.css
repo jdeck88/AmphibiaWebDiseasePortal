@@ -1,3 +1,12 @@
-.contribute-instruction {
+.contribute-instruction li {
     text-align: left;
+    margin-top: 10px;
+}
+
+.contribute-imgs {
+    border: 1px solid grey;
+    margin: 20px auto;
+    box-shadow: 5px 10px grey;
+    border-radius: 10px;
+    align-content: center;
 }
