@@ -16,6 +16,7 @@ class Dashboard{
       dashboardSelect.append($("<option>").attr("value","").text("-- Choose a Value --"));
       dashboardSelect.append($("<option>").attr("value","country").text("Country Count"));
       dashboardSelect.append($("<option>").attr("value","yearCollected").text("Year Collected Count"));
+      dashboardSelect.append($("<option>").attr("value","byProject").text("Select By Project"));
   
       dashboardForm.append(document.createTextNode("Choose a chart:"));
       dashboardForm.append(dashboardSelect);
@@ -25,10 +26,21 @@ class Dashboard{
         var selectedVariable = $('#dashboardSelect').val().trim()
         if (selectedVariable == "country") {
           dashboard.countryCount();
-        } else {
+        } if (selectedVariable == "yearCollected") {
           dashboard.yearCollectedCount();
+        }else {
+          dashboard.selectByProject()
         }
       })
+    }
+
+    selectByProject() {
+      d3
+      .json('https://api.geome-db.org/projects/stats?')
+      .then(function(data) {
+            console.log(data)
+        }
+      )
     }
     
   
