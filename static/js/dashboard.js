@@ -62,7 +62,7 @@ class Dashboard{
     yearCollectedCount() {
       d3
       .json("https://api.geome-db.org/records/Sample/json?limit=10000&page=0&networkId=1&q=_projects_:" + this.projectIds +"+" +
-          "_select_:%5BEvent%5D+&source=Event.yearCollected,expeditionCode")
+          "_select_:%5BEvent,Sample%5D+&source=Event.yearCollected,expeditionCode")
       .then(function(samples) {
         var metrics = d3.nest()
         .key(function(d) { return (d.yearCollected); })
