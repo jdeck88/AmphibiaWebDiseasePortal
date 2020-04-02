@@ -15,6 +15,40 @@ function downloadDataFile(id) {
   })
 }
 
+function displaySpecies(id) {
+  fetch(`https://api.geome-db.org/records/Sample/json?limit=10000&page=0&access_token=dSsw8HNSts-55ekJtfpe&networkId=1&q=_projects_:${id}+_select_:%5BEvent%5D+&source=Sample.genus,Sample.specificEpithet`)
+  .then(res => res.json())
+
+  .then(function(data) {
+    let allSamples = data.content.Sample
+    //console.log(allSamples)
+    let div = document.getElementById('project')
+    let p = document.createElement('p')
+
+    let samplesArray = []
+
+    for (let i = 0; i < allSamples.length; i++) {
+      let allGenus = allSamples[i].genus
+      let allEpithet = allSamples[i].specificEpithet
+      let speciesName = allGenus + ' ' + allEpithet
+
+      // Adds species to the samples array
+      samplesArray.push(speciesName)
+  }
+      //Sorts samples array alphabetically
+      let sortedArray = samplesArray.sort()
+      //console.log(sortedArray)
+      
+    for (let i = 0; i < sortedArray.length; i++) {
+      console.log(sortedArray[i])
+    }
+
+
+      p.innerHTML = sortedArray
+      div.appendChild(p)
+}
+  )} 
+
 // Base URL for fetching all projects from GEOME
 const baseURL = 'https://api.geome-db.org/projects/stats?'
 
@@ -137,11 +171,12 @@ function fetchProjects() {
         let p = document.createElement('p')
 
         let sampleData = local.entityStats
+        let today = new Date().toDateString() 
 
         p.innerHTML = `
         <h2>${local.projectTitle}</h2>
         <h6 style="font-size:12px;">Recommended Citation: </h6>
-        <h6>${local.recommendedCitation}</h6>
+        <h6 id="date">${local.recommendedCitation} ${today}</h6>
         
         <h3>Abstract or Project Description</h3>
         <hr>
@@ -158,7 +193,8 @@ function fetchProjects() {
         <hr>
 
         Events: ${sampleData.EventCount} || 
-        Samples Collected: ${sampleData.SampleCount}
+        Samples Collected: ${sampleData.SampleCount} 
+        <button onclick="displaySpecies(${local.projectId})">Species Sampled</button>
         <br>
 
         <button id="view-btn" onclick="location.href='https://geome-db.org/workbench/overview?projectId=${local.projectId}'">View Project in GEOME <i class="fa fa-external-link"></i></button>
