@@ -6,13 +6,14 @@
 <link rel="stylesheet" href="{{ . }}" | relURL/>
 {{ end }}
 
-<body onload="fetchProjects()">
+<body>
 	<!-- <body> -->
 	<div id="hero" class="wrap">
 		<h2>{{.Title }}</h2>
 
 		<div id="search-container">
-			<form id="searchbar" action="/action_page.php">
+			<p></p>
+			<form id="searchbar">
 				<input class="search" type="text" placeholder="Search Projects..." name="search" autofocus autocomplete="off">
 
 				<input id="rad-proj-pi" class="radio-btn" type="radio" name="searchby" value="ppi" checked="checked"> Project PI
@@ -34,9 +35,7 @@
 			</div>
 			<div id="detail-container">
 				<div id="project"></div>
-				<div id="btns">
-					<button id="back-btn" onclick="location.href='/projects'">Back to Projects</button>
-				</div>
+				<div id="btns">	</div>
 			</div>
     </div>
 

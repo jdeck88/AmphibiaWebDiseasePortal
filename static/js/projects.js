@@ -1,3 +1,9 @@
+// Base URL for fetching all projects from GEOME
+const baseURL = 'https://api.geome-db.org/projects/stats?'
+
+// Initialize local storage variable
+let bigdatafile
+
 // Recovers link from the fetch using the project id, creates an anchor for it and clicks it.
 function downloadDataFile(id) {
   fetch (`https://api.geome-db.org/records/Sample/excel?networkId=1&q=_projects_:${id}`)
@@ -15,45 +21,9 @@ function downloadDataFile(id) {
   })
 }
 
-function displaySpecies(id) {
-  fetch(`https://api.geome-db.org/records/Sample/json?limit=10000&page=0&access_token=dSsw8HNSts-55ekJtfpe&networkId=1&q=_projects_:${id}+_select_:%5BEvent%5D+&source=Sample.genus,Sample.specificEpithet`)
-  .then(res => res.json())
-
-  .then(function(data) {
-    let allSamples = data.content.Sample
-    //console.log(allSamples)
-    let div = document.getElementById('project')
-    let p = document.createElement('p')
-
-    let samplesArray = []
-
-    for (let i = 0; i < allSamples.length; i++) {
-      let allGenus = allSamples[i].genus
-      let allEpithet = allSamples[i].specificEpithet
-      let speciesName = allGenus + ' ' + allEpithet
-
-      // Adds species to the samples array
-      samplesArray.push(speciesName)
-  }
-      //Sorts samples array alphabetically
-      let sortedArray = samplesArray.sort()
-      //console.log(sortedArray)
-      
-    for (let i = 0; i < sortedArray.length; i++) {
-      console.log(sortedArray[i])
-    }
-
-
-      p.innerHTML = sortedArray
-      div.appendChild(p)
-}
-  )} 
-
-// Base URL for fetching all projects from GEOME
-const baseURL = 'https://api.geome-db.org/projects/stats?'
-
 // Uses Regex to find partial matches 
 function findMatches(wordToMatch, projectData) {
+
   return projectData.filter(project => {
     // Global insensitive
     const regex = new RegExp(wordToMatch, 'gi')
@@ -63,8 +33,12 @@ function findMatches(wordToMatch, projectData) {
       const radioPI = document.getElementById('rad-proj-pi').checked
       const radioName = document.getElementById('rad-proj-name').checked
       
-      if (radioPI == true && radioName == false) {
-        return project.principalInvestigator.match(regex)
+      //TODO: Fix when PI and Affiliation are null. 
+      //Still need to be able to search by title if PI is null!
+
+      // Checks for which radio button is selected, if PI is null, excludes from search
+      if (radioPI == true && radioName == false && project.principalInvestigator != null) {
+          return project.principalInvestigator.match(regex)
       } if (radioName == true && radioPI == false) {
         return project.projectTitle.match(regex)
       }
@@ -79,8 +53,7 @@ function displayMatches() {
 
   bigdatafile = JSON.parse(localStorage.getItem("bigdatafile"))
 
-  const matchArray = findMatches(this.value, bigdatafile)
-  //console.log(matchArray)
+  const matchArray = findMatches(this.value, bigdatafile.value)
 
   const html = matchArray.map(project => {
       const regex = new RegExp(this.value, 'gi')
@@ -104,32 +77,111 @@ function displayMatches() {
   allProjTable.innerHTML = html
   } 
 
+  // Displays "Loading Data..." while it is being fetched
+  function showLoader() {
+    const p = document.createElement('p')
+    const searchDiv = document.getElementById('search-container')
 
-// Fetches all public projects and displays them in a table.
-function fetchProjects() {
+    p.innerHTML = `Loading Data.....`
+    p.setAttribute('id', 'loader')
+    searchDiv.appendChild(p)
+  }
+  // Hides "Loading Data..." after data has been fetched.
+  function hideLoader() {
+    const p = document.getElementById('loader')
+    p.style.display = 'none'
+  }
+  
+
+  // FETCH ALL PROJECT DATA AND STORE LOCALLY WITH EXPIRY
+  function fetchProjectsStoreLocally() {
+    showLoader()
+
+    fetch(baseURL)
+    .then((res) => res.json())
+    .then(data => {
+      // Setting local storage to expire in 24 hrs (approx)
+      // Could be more precise but I don't think it really matters here 
+      // as long as the data is refreshed once a day.
+      let oneDay = 1000 * 60 * 60 * 24
+      bigdatafile = data
+      setWithExpiry('bigdatafile', bigdatafile, oneDay)
+      getWithExpiry(bigdatafile)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+        hideLoader()
+    })
+  }
+
+  function checkLocalStorage() {
+      if (localStorage.getItem(bigdatafile) === null) {
+        //console.log('checking for localstorage contents')
+        fetchProjectsStoreLocally()
+        displayProjects()
+      } else {
+        console.log('something went wrong')
+      }
+    }
+
+  checkLocalStorage()
+
+// SET LOCALSTORAGE WITH TIME LIMIT
+  function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+
+    // `item` is an object which contains the original value
+    // as well as the time when it's supposed to expire
+    const item = {
+      value: value,
+      expiry: now.getTime() + ttl
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  }
+
+// GET FROM LOCAL STORAGE
+  function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    // if the item doesn't exist, return null
+    if (!itemStr) {
+      return null
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    // compare the expiry time of the item with the current time
+    if (now.getTime() > item.expiry) {
+      // If the item is expired, delete the item from storage
+      // and return null
+      localStorage.removeItem(key)
+      return null
+    }
+    return item.value
+  }
+
+// Displays the data in a table.
+function displayProjects() {
   let projectId = getUrlVars().id
   
-  // If no project id is defined, fetch all projects
+  // If no project id is defined display project table using local storage
   if (projectId === undefined) { 
-  hideDetailTable()
+    hideDetailTable()
 
-  fetch(baseURL)
-  .then((resp) => resp.json())
-  
-  .then(function(data) {
+    const searchInput = document.querySelector('.search')
+
+    searchInput.addEventListener('change', displayMatches)
+    searchInput.addEventListener('keyup', displayMatches)
 
     // TODO: think about how best to manage this
     // right now it will get written everytime this particular
     // piece of code is called which is maybe OK
 
-    // Write this to storage so we can use it later
-    bigdatafile = data
-    localStorage.setItem("bigdatafile", JSON.stringify(bigdatafile));
-    // console.log('initializing bigdatafile')
-    // console.log(bigdatafile)
+    bigdatafile = JSON.parse(localStorage.getItem("bigdatafile")).value
 
-
-    return data.forEach(function(project) {
+    return bigdatafile.forEach(function(project) {
       // 45 is the Amphibian Disease Portal TEAM configuration ID.
       if(project.projectConfiguration.id == 45 && project.public == true) {
 
@@ -147,18 +199,15 @@ function fetchProjects() {
                 `
               allProjTable.appendChild(tr)
               document.getElementById(`project${project.projectId}`).addEventListener('click', function(e) {
-                console.log(e)
+                //console.log(e)
                 window.location.href = `/projects/?id=${project.projectId}`
                 // console.log(`This button's ID: ${project.projectId}`)
               })
       }
     })
-  })
-  .catch(function(err) {
-    console.log(err)
-  })
+
   } else {
-    bigdatafile = JSON.parse(localStorage.getItem("bigdatafile"))
+    bigdatafile = JSON.parse(localStorage.getItem("bigdatafile")).value
     hideMainTable()
 
     // Loops through the objects in localstorage
@@ -194,13 +243,13 @@ function fetchProjects() {
 
         Events: ${sampleData.EventCount} || 
         Samples Collected: ${sampleData.SampleCount} 
-        <button onclick="displaySpecies(${local.projectId})">Species Sampled</button>
         <br>
 
         <button id="view-btn" onclick="location.href='https://geome-db.org/workbench/overview?projectId=${local.projectId}'">View Project in GEOME <i class="fa fa-external-link"></i></button>
         <button id="data-btn" onclick="location.href='https://geome-db.org/query?q=_projects_:${local.projectId}'">Query Dataset in GEOME <i class="fa fa-external-link"></i></button>
         <button id="download-btn" onclick="downloadDataFile(${local.projectId})"><i class="fa fa-download"></i>Download Newest Datafile</button><br>
-        
+        <button id="back-btn" onclick="location.href='/projects'">Back to Projects</button>
+
         `
         div.appendChild(p)
 
@@ -210,11 +259,6 @@ function fetchProjects() {
     }
     //console.log("fetching project at id " + projectId)
   }
-
-const searchInput = document.querySelector('.search')
-
-searchInput.addEventListener('change', displayMatches)
-searchInput.addEventListener('keyup', displayMatches)
 }
 
 function getUrlVars() {
