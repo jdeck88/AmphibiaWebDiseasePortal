@@ -188,8 +188,8 @@ function displayProjects() {
               tr.innerHTML = `
                 <td> <i id="pubglobe" class="fa fa-globe"></i> </td>
                 <td> ${project.projectTitle} </td>
-                <td> ${project.principalInvestigator} </td>
-                <td> ${project.principalInvestigatorAffiliation} </td>
+                <td> ${project.principalInvestigator == null ? 'None Listed' : project.principalInvestigator} </td>
+                <td> ${project.principalInvestigatorAffiliation == null ? 'None Listed' : project.principalInvestigatorAffiliation} </td>
                 <td><button class="detailsBtn" data-id='${project.projectId}' 
                     id='project${project.projectId}'
                     >Details</button></td>
@@ -212,39 +212,72 @@ function displayProjects() {
       let local = bigdatafile[i]
       // Makes sure the project is public, is the right team (45), and that the project id matches.
       if (local.projectConfiguration.id == 45 && local.public == true && local.projectId == projectId) {
-        
         let div = document.getElementById('project')
         let p = document.createElement('p')
-
         let sampleData = local.entityStats
         let today = new Date().toDateString() 
+        
+        // Check if dataset DOI is null.
+        let checkForDataDoi =  () => {
+          if (local.projectDataGuid == null) {
+            return 'None Available'
+          } else {
+            return `<a href="${local.projectDataGuid}">${local.projectDataGuid}</a> `
+          }
+        } 
+
+        // Check if Publication DOI is null.
+        let checkForPublicationDoi = () => {
+          if (local.publicationGuid == null) {
+            return 'None Available'
+          } else {
+            return `<a href="${local.publicationGuid}">${local.publicationGuid}</a>`
+          }
+        }
+        
+
+        // Checks to see if there is event data
+        let handleSamples = () => {
+          if (sampleData.EventCount == 0 || sampleData.EventCount == null) {
+            return `No Sample Data Available<br>`
+          } else {
+            return `
+            Events: ${sampleData.EventCount} || 
+            Samples Collected: ${sampleData.SampleCount} 
+            <br>
+    
+            <button id="data-btn" onclick="location.href='https://geome-db.org/query?q=_projects_:${local.projectId}'">Query Dataset in GEOME <i class="fa fa-external-link"></i></button>
+            <button id="download-btn" onclick="downloadDataFile(${local.projectId})"><i class="fa fa-download"></i>Download Newest Datafile</button>
+    
+            `
+          }
+        }
 
         p.innerHTML = `
         <h2>${local.projectTitle}</h2>
         <h6 style="font-size:12px;">Recommended Citation: </h6>
-        <h6 id="date">${local.recommendedCitation} ${today}</h6>
+        <h6 id="date">${local.recommendedCitation == null ? 'No Citation Available' : local.recommendedCitation} ${today}</h6>
+
         
-        <h3>Abstract or Project Description</h3>
+        <h3>Project Description</h3>
         <hr>
-        ${local.description}
+        ${local.description == null ? 'No Description Availabe' : local.description}
 
         <h3>Information</h3>
         <hr>
-        Project PI: ${local.principalInvestigator} <br>
+        Project PI: ${local.principalInvestigator == null ? 'None' : local.principalInvestigator} <br>
         Project Contact: ${local.projectContact} <a href="mailto:${local.projectContactEmail}"><i class="fa fa-envelope"></i> </a><br>
-        Dataset DOI: <a href="${local.projectDataGuid}">${local.projectDataGuid}</a> <br>
-        Publication DOI: <a href="${local.publicationGuid}">${local.publicationGuid}</a> <br>
+        Dataset DOI: ${checkForDataDoi()}
+        
+        <br>
+        Publication DOI: ${checkForPublicationDoi()} <br>
 
         <h3 style="margin-top: 15px;">Project Data - Public <i class="fa fa-globe"></i></h3> 
         <hr>
-
-        Events: ${sampleData.EventCount} || 
-        Samples Collected: ${sampleData.SampleCount} 
-        <br>
+        ${handleSamples()}
 
         <button id="view-btn" onclick="location.href='https://geome-db.org/workbench/overview?projectId=${local.projectId}'">View Project in GEOME <i class="fa fa-external-link"></i></button>
-        <button id="data-btn" onclick="location.href='https://geome-db.org/query?q=_projects_:${local.projectId}'">Query Dataset in GEOME <i class="fa fa-external-link"></i></button>
-        <button id="download-btn" onclick="downloadDataFile(${local.projectId})"><i class="fa fa-download"></i>Download Newest Datafile</button><br>
+
         <button id="back-btn" onclick="location.href='/projects'">Back to Projects</button>
 
         `
