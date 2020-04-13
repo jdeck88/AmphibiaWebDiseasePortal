@@ -117,16 +117,17 @@ function displayMatches() {
   }
 
   function checkLocalStorage() {
+    return new Promise((resolve, reject) => {
       if (localStorage.getItem(bigdatafile) === null) {
-        //console.log('checking for localstorage contents')
-        fetchProjectsStoreLocally()
-        displayProjects()
+        resolve(fetchProjectsStoreLocally())
       } else {
-        console.log('something went wrong')
+        reject('An error occured')
       }
+    })
     }
 
   checkLocalStorage()
+  .then(displayProjects())
 
 // SET LOCALSTORAGE WITH TIME LIMIT
   function setWithExpiry(key, value, ttl) {
@@ -174,10 +175,6 @@ function displayProjects() {
 
     searchInput.addEventListener('change', displayMatches)
     searchInput.addEventListener('keyup', displayMatches)
-
-    // TODO: think about how best to manage this
-    // right now it will get written everytime this particular
-    // piece of code is called which is maybe OK
 
     bigdatafile = JSON.parse(localStorage.getItem("bigdatafile")).value
 
@@ -236,7 +233,7 @@ function displayProjects() {
         Project PI: ${local.principalInvestigator} <br>
         Project Contact: ${local.projectContact} <a href="mailto:${local.projectContactEmail}"><i class="fa fa-envelope"></i> </a><br>
         Dataset DOI: <a href="${local.projectDataGuid}">${local.projectDataGuid}</a> <br>
-        DOI: <a href="${local.publicationGuid}">${local.publicationGuid}</a> <br>
+        Publication DOI: <a href="${local.publicationGuid}">${local.publicationGuid}</a> <br>
 
         <h3 style="margin-top: 15px;">Project Data - Public <i class="fa fa-globe"></i></h3> 
         <hr>
@@ -280,3 +277,4 @@ function hideDetailTable() {
   let container = document.getElementById('detail-container')
   container.style.display = "none"
 }
+
