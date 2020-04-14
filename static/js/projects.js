@@ -128,7 +128,6 @@ function displayMatches() {
     }
 
   checkLocalStorage()
-    .then(displayProjects())
 
 // SET LOCALSTORAGE WITH TIME LIMIT
   function setWithExpiry(key, value, ttl) {
