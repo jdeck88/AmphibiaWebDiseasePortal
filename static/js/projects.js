@@ -95,11 +95,11 @@ function displayMatches() {
 
   // FETCH ALL PROJECT DATA AND STORE LOCALLY WITH EXPIRY
   function fetchProjectsStoreLocally() {
-    showLoader()
 
     fetch(baseURL)
     .then((res) => res.json())
     .then(data => {
+      showLoader()
       // Setting local storage to expire in 24 hrs (approx)
       // Could be more precise but I don't think it really matters here 
       // as long as the data is refreshed once a day.
@@ -113,6 +113,7 @@ function displayMatches() {
     })
     .finally(() => {
         hideLoader()
+        displayProjects()
     })
   }
 
@@ -127,7 +128,7 @@ function displayMatches() {
     }
 
   checkLocalStorage()
-  .then(displayProjects())
+    .then(displayProjects())
 
 // SET LOCALSTORAGE WITH TIME LIMIT
   function setWithExpiry(key, value, ttl) {
