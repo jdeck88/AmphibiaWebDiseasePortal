@@ -7,18 +7,22 @@
 <script src="{{ . }}"></script>
 {{ end }}
 {{ range  $.Params.css }}
-<script src="{{ . }}"></script>
+<link rel="stylesheet" href="{{ . }}" | relURL/>
 {{ end }}
 
 <div id="hero" class="wrap">
   <h2>{{.Title }}</h2>
   {{ .Content }}
+
+  <div id="dash-form-container">
+    <form id="dashboardForm"></form>
+    <form id="project-dash"></form>
+  </div>
+   <div id="chart-container">
+    <canvas id="dashboardChart"></canvas>
+   </div>  
 </div>
 
-<ul id="posts">
-  <form id="dashboardForm"></form>
-  <canvas id="dashboardChart" height="400px;"></canvas>
-</ul>
 
 <script>
   dashboard = new Dashboard();
